@@ -5,6 +5,9 @@
 #include <fcntl.h>
 #include <termios.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 
 #define BAUDRATE B38400
 #define MODEMDEVICE "/dev/ttyS1"
@@ -20,9 +23,9 @@ int main(int argc, char** argv)
     struct termios oldtio,newtio;
     char buf[255];
     int i, sum = 0, speed = 0;
-    
-    if ( (argc < 2) || 
-  	     ((strcmp("/dev/ttyS0", argv[1])!=0) && 
+
+    if ( (argc < 2) ||
+  	     ((strcmp("/dev/ttyS0", argv[1])!=0) &&
   	      (strcmp("/dev/ttyS1", argv[1])!=0) )) {
       printf("Usage:\tnserial SerialPort\n\tex: nserial /dev/ttyS1\n");
       exit(1);
@@ -51,16 +54,15 @@ int main(int argc, char** argv)
     /* set input mode (non-canonical, no echo,...) */
     newtio.c_lflag = 0;
 
-    newtio.c_cc[VTIME]    = 0;   /* inter-character timer unused */
-    newtio.c_cc[VMIN]     = 5;   /* blocking read until 5 chars received */
+    newtio.c_cc[VTIME]    = 1;   /* inter-character timer unused */
+    newtio.c_cc[VMIN]     = 0;   /* blocking read until 5 chars received */
 
 
 
-  /* 
-    VTIME e VMIN devem ser alterados de forma a proteger com um temporizador a 
+  /*
+    VTIME e VMIN devem ser alterados de forma a proteger com um temporizador a
     leitura do(s) próximo(s) caracter(es)
   */
-
 
 
     tcflush(fd, TCIOFLUSH);
@@ -72,35 +74,60 @@ int main(int argc, char** argv)
 
     printf("New termios structure set\n");
 
+    printf("Enter string: ");
+/*reading from stdin*/
+gets(buf);
 
+printf("%s\n", buf);
 
+i = 0;
+int count = strlen(buf)+1;
+
+/*
     for (i = 0; i < 255; i++) {
       buf[i] = 'a';
     }
-    
-    /*testing*/
-    buf[25] = '\n';
-    
-    res = write(fd,buf,255);   
-    printf("%d bytes written\n", res);
- 
 
-  /* 
-    O ciclo FOR e as instruções seguintes devem ser alterados de modo a respeitar 
-    o indicado no guião 
+    testing
+    buf[25] = '\n';
+    */
+    res = write(fd,buf,count);
+    printf("%d bytes written\n", res);
+ 	sleep(2);
+
+/*reading back*/
+
+char str[255] = {0};
+char ch[2];
+int counter = 0;
+
+res = read(fd, ch, 1);
+ch[1] = 0;
+counter += res;
+
+strcpy(str, ch);
+
+while(ch[0] != '\0') {
+	res = read(fd, ch, 1);
+	counter += res;
+	strncat(str, ch, 1);
+	ch[1] = 0;
+}
+
+printf("%s\n", str);
+printf("%d bytes received\n", counter);
+
+  /*
+    O ciclo FOR e as instruções seguintes devem ser alterados de modo a respeitar
+    o indicado no guião
   */
 
-
-
-   
-    if ( tcsetattr(fd,TCSANOW,&oldtio) == -1) {
+if ( tcsetattr(fd,TCSANOW,&oldtio) == -1) {
       perror("tcsetattr");
       exit(-1);
     }
 
-
-
-
     close(fd);
     return 0;
 }
+
