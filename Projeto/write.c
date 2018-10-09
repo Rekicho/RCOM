@@ -19,6 +19,7 @@
 #define SET_ADDRESS 0x03
 #define SET_CONTROL 0x03
 
+#define UA_SIZE 5
 #define UA_FLAG 0x7E
 #define UA_ADDRESS 0x03
 #define UA_CONTROL 0x07
@@ -94,6 +95,7 @@ void atende_alarme()
 {
 	flag_alarme = 1;
 	conta_alarme++;
+	printf("Alarme %d\n", conta_alarme);
 }
 
 void desativa_alarme()
@@ -124,6 +126,7 @@ void llopen(int fd)
 		desativa_alarme();
 
 		res = write(fd, set, SET_SIZE);
+		printf("SET enviado!\n");
 
 		if (res <= 0)
 			continue;
@@ -184,9 +187,10 @@ void llopen(int fd)
 
 			i++;
 
-			if (i == 5)
+			if (i == UA_SIZE)
 			{
 				recebido = TRUE;
+				printf("UA recebido!\n");
 				desativa_alarme();
 			}
 		}
