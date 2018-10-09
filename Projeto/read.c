@@ -13,6 +13,7 @@
 #define FALSE 0
 #define TRUE 1
 
+#define SET_SIZE 5
 #define SET_FLAG 0x7E
 #define SET_ADDRESS 0x03
 #define SET_CONTROL 0x03
@@ -154,8 +155,11 @@ void llopen(int fd)
 
         i++;
 
-        if (i == 5)
+        if (i == SET_SIZE)
+	{
             recebido = TRUE;
+	    printf("SET recebido!\n");
+	}
     }
 
     int enviado = FALSE;
@@ -163,6 +167,7 @@ void llopen(int fd)
     while (!enviado)
     {
         res = write(fd, ua, UA_SIZE);
+	printf("UA enviado!\n");
 
         if(res == UA_SIZE)
             enviado = TRUE;
