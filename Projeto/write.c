@@ -24,9 +24,18 @@
 #define UA_ADDRESS 0x03
 #define UA_CONTROL 0x07
 
+#define W_FLAG 0x7E
+#define W_ADDRESS 0x03
+#define W_CONTROL0 0x00
+#define W_CONTROL1 0x40
+#define W_ESCAPE 0x7D
+#define W_OR_FLAG 0x5E
+#define W_OR_ESCAPE 0x5D
+
 #define MAX_ALARMS 3
 
 volatile int STOP = FALSE;
+int trama = 0;
 
 int setup(int argc, char **argv)
 {
@@ -197,8 +206,91 @@ void llopen(int fd)
 	}
 }
 
+void llwrite(int fd, char *buffer, int length)
+{
+	if(length <= 0)
+		return;
+
+	char bcc2 = buffer[0];
+	int i = 1;
+
+	for(;i < length; i++)
+		bcc2 ^= buffer[i];
+
+	char *buf;
+
+	buf = (char *) malloc((length+1)*2 + 5);
+
+	buf[0] = W_FLAG;
+	buf[1] = W_ADDRESS;
+
+	if(trama == 0)
+	{
+		buf[2] = W_CONTROL0;
+		buf[3] = W_ADDRESS ^ W_CONTROL0;
+	}
+
+	else if (trama == 1)
+	{
+		buf[2] = W_CONTROL1;
+		buf[3] = W_ADDRESS ^ W_CONTROL1;
+	}
+
+	else return;
+
+	i = 0;
+	int j = 4;
+
+	for(;i < length; i++, j++)
+	{
+		if(buffer[i] == W_FLAG)
+		{
+			buf[j] = W_ESCAPE;
+			j++;
+			buf[j] = W_OR_FLAG;
+		}
+
+		else if(buffer[i] == W_ESCAPE)
+		{
+			buf[j] = W_ESCAPE;
+			j++;
+			buf[j] = W_OR_ESCAPE;
+		}
+
+		else buf[j] = buffer[i];
+	}
+
+	if(bcc2 == W_FLAG)
+	{
+		buf[j] = W_ESCAPE;
+		j++;
+		buf[j] = W_OR_FLAG;
+	}
+
+	else if(bcc2 == W_ESCAPE)
+	{
+		buf[j] = W_ESCAPE;
+		j++;
+		buf[j] = W_OR_ESCAPE;
+	}
+
+	else buf[j] = bcc2;
+
+	j++;
+
+	buf[j] = W_FLAG;
+
+	j++; // j contém numero de chars usados
+	
+	write(fd, buf, j);
+	printf("Trama I enviada!\n");
+
+	free(buf);
+}
+
 int main(int argc, char **argv)
 {
 	int fd = setup(argc, argv);
 	llopen(fd);
+	llwrite(fd, "RCOM", 4);
 }

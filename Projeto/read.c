@@ -174,8 +174,26 @@ void llopen(int fd)
     }
 }
 
+void llread(int fd, char *buffer)
+{
+	char receber[100];
+
+	int res = read(fd, receber, 100);
+
+	int i = 4;
+	int j = 0;
+
+	for(; i < res - 2; i++, j++)
+		buffer[j] = receber[i];	
+}
+
 int main(int argc, char **argv)
 {
     int fd = setup(argc, argv);
     llopen(fd);
+
+	char rcom[100];
+	llread(fd,rcom);
+
+	printf("%s",rcom);
 }
