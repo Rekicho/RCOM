@@ -25,65 +25,67 @@
 
 #define MAX_ALARMS 3
 
-volatile int STOP=FALSE;
+volatile int STOP = FALSE;
 
-int setup(int argc, char** argv)
+int setup(int argc, char **argv)
 {
-	int fd,c, res;
-    struct termios oldtio,newtio;
-    char buf[255];
-    int i, sum = 0, speed = 0;
+	int fd, c, res;
+	struct termios oldtio, newtio;
+	char buf[255];
+	int i, sum = 0, speed = 0;
 
-    if ( (argc < 2) ||
-  	     ((strcmp("/dev/ttyS0", argv[1])!=0) &&
-  	      (strcmp("/dev/ttyS1", argv[1])!=0) )) {
-      printf("Usage:\tnserial SerialPort\n\tex: nserial /dev/ttyS1\n");
-      exit(1);
-    }
+	if ((argc < 2) ||
+		((strcmp("/dev/ttyS0", argv[1]) != 0) &&
+		 (strcmp("/dev/ttyS1", argv[1]) != 0)))
+	{
+		printf("Usage:\tnserial SerialPort\n\tex: nserial /dev/ttyS1\n");
+		exit(1);
+	}
 
-
-  /*
+	/*
     Open serial port device for reading and writing and not as controlling tty
     because we don't want to get killed if linenoise sends CTRL-C.
 
   */
 
+	fd = open(argv[1], O_RDWR | O_NOCTTY);
+	if (fd < 0)
+	{
+		perror(argv[1]);
+		exit(-1);
+	}
 
-    fd = open(argv[1], O_RDWR | O_NOCTTY );
-    if (fd <0) {perror(argv[1]); exit(-1); }
+	if (tcgetattr(fd, &oldtio) == -1)
+	{ /* save current port settings */
+		perror("tcgetattr");
+		exit(-1);
+	}
 
-    if ( tcgetattr(fd,&oldtio) == -1) { /* save current port settings */
-      perror("tcgetattr");
-      exit(-1);
-    }
+	bzero(&newtio, sizeof(newtio));
+	newtio.c_cflag = BAUDRATE | CS8 | CLOCAL | CREAD;
+	newtio.c_iflag = IGNPAR;
+	newtio.c_oflag = 0;
 
-    bzero(&newtio, sizeof(newtio));
-    newtio.c_cflag = BAUDRATE | CS8 | CLOCAL | CREAD;
-    newtio.c_iflag = IGNPAR;
-    newtio.c_oflag = 0;
+	/* set input mode (non-canonical, no echo,...) */
+	newtio.c_lflag = 0;
 
-    /* set input mode (non-canonical, no echo,...) */
-    newtio.c_lflag = 0;
+	newtio.c_cc[VTIME] = 1; /* inter-character timer unused */
+	newtio.c_cc[VMIN] = 0;  /* blocking read until 5 chars received */
 
-    newtio.c_cc[VTIME]    = 1;   /* inter-character timer unused */
-    newtio.c_cc[VMIN]     = 0;   /* blocking read until 5 chars received */
-
-
-
-  /*
+	/*
     VTIME e VMIN devem ser alterados de forma a proteger com um temporizador a
     leitura do(s) próximo(s) caracter(es)
   */
 
+	tcflush(fd, TCIOFLUSH);
 
-    tcflush(fd, TCIOFLUSH);
+	if (tcsetattr(fd, TCSANOW, &newtio) == -1)
+	{
+		perror("tcsetattr");
+		exit(-1);
+	}
 
-    if ( tcsetattr(fd,TCSANOW,&newtio) == -1) {
-      perror("tcsetattr");
-      exit(-1);
-    }
-
-    printf("New termios structure set\n");
+	printf("New termios structure set\n");
 
 	return fd;
 }
@@ -105,7 +107,7 @@ void desativa_alarme()
 void llopen(int fd)
 {
 	char set[5];
-	
+
 	set[0] = SET_FLAG;
 	set[1] = SET_ADDRESS;
 	set[2] = SET_CONTROL;
@@ -114,67 +116,77 @@ void llopen(int fd)
 
 	char ua[5];
 
-	(void) signal(SIGALARM, atende_alarme);
-	
+	(void)signal(SIGALRM, atende_alarme);
+
 	int recebido = FALSE;
 	int i = 0, res = 0;
 
-	while(conta_alarme <= MAX_ALARMS && !recebido)
+	while (conta_alarme <= MAX_ALARMS && !recebido)
 	{
 		desativa_alarme();
 
-		res = write(fd,set,SET_SIZE);
+		res = write(fd, set, SET_SIZE);
 
-		if(res <= 0)
+		if (res <= 0)
 			continue;
 
 		alarm(3);
 
-		while(!flag_alarme && !recebido)
+		while (!flag_alarme && !recebido)
 		{
-			res = read(fd,ua + i,1);
+			res = read(fd, ua + i, 1);
 
-			if(res <= 0)
+			if (res <= 0)
 				continue;
 
-			switch(i)
+			switch (i)
 			{
-				case 0: if(ua[i] != UA_FLAG) 
-							continue;
-						break;
-				case 1: if(ua[i] != UA_ADDRESS)
-						{
-							if(ua[i] != UA_FLAG)
-								i=0;
-							continue;
-						}
-						break;
-				case 2: if(ua[i] != UA_CONTROL)
-						{
-							if(ua[i] != UA_FLAG)
-								i=0;
-							continue;
-						}
-						break;
-				case 3: if(ua[i] != (UA_ADDRESS ^ UA_CONTROL))
-						{
-							if(ua[i] != UA_FLAG)
-								i=0;
-							continue;
-						}
-						break;
-				case 4: if(ua[i] != UA_FLAG)
-						{
-							i=0;
-							continue;
-						}
-						break;
-				default: break;
+			case 0:
+				if (ua[i] != UA_FLAG)
+					continue;
+				break;
+			case 1:
+				if (ua[i] != UA_ADDRESS)
+				{
+					if (ua[i] != UA_FLAG)
+						i = 0;
+					continue;
+				}
+				break;
+			case 2:
+				if (ua[i] != UA_CONTROL)
+				{
+					if (ua[i] != UA_FLAG)
+						i = 0;
+					else
+						i = 1;
+					continue;
+				}
+				break;
+			case 3:
+				if (ua[i] != (UA_ADDRESS ^ UA_CONTROL))
+				{
+					if (ua[i] != UA_FLAG)
+						i = 0;
+					else
+						i = 1;
+					continue;
+				}
+				break;
+			case 4:
+				if (ua[i] != UA_FLAG)
+				{
+					i = 0;
+					continue;
+				}
+				break;
+			default:
+				break;
 			}
 
 			i++;
 
-			if(i == 5)
+			if (i == 5)
 			{
 				recebido = TRUE;
 				desativa_alarme();
@@ -183,10 +195,8 @@ void llopen(int fd)
 	}
 }
 
-
-
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-    int fd = setup(argc, argv);
+	int fd = setup(argc, argv);
 	llopen(fd);
 }
