@@ -29,10 +29,8 @@ volatile int STOP = FALSE;
 
 int setup(int argc, char **argv)
 {
-	int fd, c, res;
+	int fd;
 	struct termios oldtio, newtio;
-	char buf[255];
-	int i, sum = 0, speed = 0;
 
 	if ((argc < 2) ||
 		((strcmp("/dev/ttyS0", argv[1]) != 0) &&
