@@ -23,8 +23,6 @@
 #define UA_ADDRESS 0x03
 #define UA_CONTROL 0x07
 
-volatile int STOP = FALSE;
-
 int setup(int argc, char **argv)
 {
     int fd;

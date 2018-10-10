@@ -34,7 +34,6 @@
 
 #define MAX_ALARMS 3
 
-volatile int STOP = FALSE;
 int trama = 0;
 
 int setup(int argc, char **argv)
@@ -206,10 +205,10 @@ void llopen(int fd)
 	}
 }
 
-void llwrite(int fd, char *buffer, int length)
+int llwrite(int fd, char *buffer, int length)
 {
 	if(length <= 0)
-		return;
+		return -1;
 
 	char bcc2 = buffer[0];
 	int i = 1;
@@ -236,7 +235,7 @@ void llwrite(int fd, char *buffer, int length)
 		buf[3] = W_ADDRESS ^ W_CONTROL1;
 	}
 
-	else return;
+	else return -1;
 
 	i = 0;
 	int j = 4;
@@ -282,15 +281,22 @@ void llwrite(int fd, char *buffer, int length)
 
 	j++; // j contém numero de chars usados
 	
-	write(fd, buf, j);
-	printf("Trama I enviada!\n");
+	int res = write(fd, buf, j);
 
 	free(buf);
+
+	if(res == j)
+		printf("Trama I%d enviada!\n", trama);
+
+	else return -1;
+
+	return 0;
 }
 
 int main(int argc, char **argv)
 {
 	int fd = setup(argc, argv);
 	llopen(fd);
-	llwrite(fd, "RCOM", 4);
+	if(llwrite(fd, "o joao e gay", 13) < 0)
+		printf("Error sending trama");
 }
