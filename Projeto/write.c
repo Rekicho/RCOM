@@ -24,13 +24,13 @@
 #define UA_ADDRESS 0x03
 #define UA_CONTROL 0x07
 
-#define W_FLAG 0x7E
-#define W_ADDRESS 0x03
-#define W_CONTROL0 0x00
-#define W_CONTROL1 0x40
-#define W_ESCAPE 0x7D
-#define W_OR_FLAG 0x5E
-#define W_OR_ESCAPE 0x5D
+#define INF_FLAG 0x7E
+#define INF_ADDRESS 0x03
+#define INF_CONTROL0 0x00
+#define INF_CONTROL1 0x40
+#define INF_ESCAPE 0x7D
+#define INF_OR_FLAG 0x5E
+#define INF_OR_ESCAPE 0x5D
 
 #define MAX_ALARMS 3
 
@@ -207,88 +207,92 @@ void llopen(int fd)
 
 int llwrite(int fd, char *buffer, int length)
 {
-	if(length <= 0)
+	if (length <= 0)
 		return -1;
 
-	char bcc2 = buffer[0];
-	int i = 1;
+	char bcc2 = 0;
+	int i = 0;
 
-	for(;i < length; i++)
+	for (; i < length; i++)
 		bcc2 ^= buffer[i];
 
 	char *buf;
 
-	buf = (char *) malloc((length+1)*2 + 5);
+	buf = (char *)malloc((length + 1) * 2 + 5);
 
-	buf[0] = W_FLAG;
-	buf[1] = W_ADDRESS;
+	buf[0] = INF_FLAG;
+	buf[1] = INF_ADDRESS;
 
-	if(trama == 0)
+	if (trama == 0)
 	{
-		buf[2] = W_CONTROL0;
-		buf[3] = W_ADDRESS ^ W_CONTROL0;
+		buf[2] = INF_CONTROL0;
+		buf[3] = INF_ADDRESS ^ INF_CONTROL0;
 	}
 
 	else if (trama == 1)
 	{
-		buf[2] = W_CONTROL1;
-		buf[3] = W_ADDRESS ^ W_CONTROL1;
+		buf[2] = INF_CONTROL1;
+		buf[3] = INF_ADDRESS ^ INF_CONTROL1;
 	}
 
-	else return -1;
+	else
+		return -1;
 
 	i = 0;
 	int j = 4;
 
-	for(;i < length; i++, j++)
+	for (; i < length; i++, j++)
 	{
-		if(buffer[i] == W_FLAG)
+		if (buffer[i] == INF_FLAG)
 		{
-			buf[j] = W_ESCAPE;
+			buf[j] = INF_ESCAPE;
 			j++;
-			buf[j] = W_OR_FLAG;
+			buf[j] = INF_OR_FLAG;
 		}
 
-		else if(buffer[i] == W_ESCAPE)
+		else if (buffer[i] == INF_ESCAPE)
 		{
-			buf[j] = W_ESCAPE;
+			buf[j] = INF_ESCAPE;
 			j++;
-			buf[j] = W_OR_ESCAPE;
+			buf[j] = INF_OR_ESCAPE;
 		}
 
-		else buf[j] = buffer[i];
+		else
+			buf[j] = buffer[i];
 	}
 
-	if(bcc2 == W_FLAG)
+	if (bcc2 == INF_FLAG)
 	{
-		buf[j] = W_ESCAPE;
+		buf[j] = INF_ESCAPE;
 		j++;
-		buf[j] = W_OR_FLAG;
+		buf[j] = INF_OR_FLAG;
 	}
 
-	else if(bcc2 == W_ESCAPE)
+	else if (bcc2 == INF_ESCAPE)
 	{
-		buf[j] = W_ESCAPE;
+		buf[j] = INF_ESCAPE;
 		j++;
-		buf[j] = W_OR_ESCAPE;
+		buf[j] = INF_OR_ESCAPE;
 	}
 
-	else buf[j] = bcc2;
+	else
+		buf[j] = bcc2;
 
 	j++;
 
-	buf[j] = W_FLAG;
+	buf[j] = INF_FLAG;
 
 	j++; // j contém numero de chars usados
-	
+
 	int res = write(fd, buf, j);
 
 	free(buf);
 
-	if(res == j)
+	if (res == j)
 		printf("Trama I%d enviada!\n", trama);
 
-	else return -1;
+	else
+		return -1;
 
 	return 0;
 }
@@ -297,6 +301,6 @@ int main(int argc, char **argv)
 {
 	int fd = setup(argc, argv);
 	llopen(fd);
-	if(llwrite(fd, "o joao e gay", 13) < 0)
+	if (llwrite(fd, "o joao e gay", 13) < 0)
 		printf("Error sending trama");
 }
