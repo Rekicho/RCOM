@@ -304,8 +304,11 @@ int main(int argc, char **argv)
     llopen(fd);
 
     char data[100];
-    if (llread(fd, data) < 1)
-        printf("Error reading message\n");
+    if (llread(fd, data) < 0)
+	{
+		printf("Error reading message\n");
+		return -1;
+	}
 
-    printf("%s", data);
+    printf("%s\n", data);
 }
