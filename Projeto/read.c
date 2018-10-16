@@ -32,6 +32,12 @@
 #define INF_XOR_FLAG 0x5E
 #define INF_XOR_ESCAPE 0x5D
 
+#define RR_SIZE 5
+#define RR_FLAG 0x7E
+#define RR_ADDRESS 0x03
+#define RR_CONTROL0 0x05
+#define RR_CONTROL1 0x87
+
 int trama = 0;
 
 int setup(int argc, char **argv)
@@ -247,6 +253,39 @@ int check_initials(int fd)
     return 0;
 }
 
+void sendRR(int fd){
+	char rr[5];
+
+    rr[0] = RR_FLAG;
+    rr[1] = RR_ADDRESS;
+
+	if(trama == 0)
+	{
+		rr[2] = RR_CONTROL0;
+    	rr[3] = RR_ADDRESS ^ RR_CONTROL0;
+	}
+
+	else 
+	{
+		rr[2] = RR_CONTROL1;
+    	rr[3] = RR_ADDRESS ^ RR_CONTROL1;
+	}
+
+    rr[4] = RR_FLAG;
+
+	int enviado = FALSE;
+	int res;
+
+    while (!enviado)
+    {
+        res = write(fd, rr, RR_SIZE);
+        printf("RR%d enviado!\n", trama);
+
+        if (res == RR_SIZE)
+            enviado = TRUE;
+    }
+}
+
 int llread(int fd, char *buffer)
 {
     int res = check_initials(fd);
@@ -317,7 +356,16 @@ int llread(int fd, char *buffer)
     if (check != bcc)
         return -1;
 
-    return 0;
+	printf("Trama %d recebida!\n",trama);
+
+	if(trama == 0)
+		trama = 1;
+
+	else trama = 0;
+
+	sendRR(fd);
+
+    return i;
 }
 
 int main(int argc, char **argv)
