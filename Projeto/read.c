@@ -269,7 +269,7 @@ int llread(int fd, char *buffer)
 
 		if (destuffing)
 		{
-			destuffing = false;
+			destuffing = FALSE;
 			
 			if(data[0] == INF_XOR_FLAG)
 				data[0] = INF_FLAG;

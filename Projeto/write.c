@@ -301,6 +301,6 @@ int main(int argc, char **argv)
 {
 	int fd = setup(argc, argv);
 	llopen(fd);
-	if (llwrite(fd, "lamp", 5) < 0)
+	if (llwrite(fd, "}~]^", 5) < 0)
 		printf("Error sending trama");
 }
