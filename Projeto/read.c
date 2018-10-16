@@ -29,8 +29,8 @@
 #define INF_CONTROL0 0x00
 #define INF_CONTROL1 0x40
 #define INF_ESCAPE 0x7D
-#define INF_OR_FLAG 0x5E
-#define INF_OR_ESCAPE 0x5D
+#define INF_XOR_FLAG 0x5E
+#define INF_XOR_ESCAPE 0x5D
 
 int trama = 0;
 
@@ -258,6 +258,7 @@ int llread(int fd, char *buffer)
     char bcc;
     int recebido = FALSE;
     int i = 0;
+	int destuffing = FALSE;
 
     while(!recebido)
     {
@@ -266,7 +267,20 @@ int llread(int fd, char *buffer)
         if (res <= 0)
             continue;
 
-        if (data[0] == INF_FLAG)
+		if (destuffing)
+		{
+			destuffing = false;
+			
+			if(data[0] == INF_XOR_FLAG)
+				data[0] = INF_FLAG;
+
+			else if(data[0] == INF_XOR_ESCAPE)
+				data[0] = INF_ESCAPE;
+
+			else return -1;
+		}
+
+        else if (data[0] == INF_FLAG)
         {
             if(i == 0)
                 return -1;
@@ -276,6 +290,12 @@ int llread(int fd, char *buffer)
         }
 
         //DE-STUFFING
+		else if (data[0] == INF_ESCAPE)
+		{
+			destuffing = TRUE;
+			continue;
+		}
+			
 
         if (i != 0)
             buffer[i-1] = bcc;
@@ -283,6 +303,8 @@ int llread(int fd, char *buffer)
         bcc = data[0];
         i++;
     }
+
+	i--; //BCC doesn't count
 
     //i has num char read to buffer
 

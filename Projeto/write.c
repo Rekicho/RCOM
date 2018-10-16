@@ -29,8 +29,8 @@
 #define INF_CONTROL0 0x00
 #define INF_CONTROL1 0x40
 #define INF_ESCAPE 0x7D
-#define INF_OR_FLAG 0x5E
-#define INF_OR_ESCAPE 0x5D
+#define INF_XOR_FLAG 0x5E
+#define INF_XOR_ESCAPE 0x5D
 
 #define MAX_ALARMS 3
 
@@ -247,14 +247,14 @@ int llwrite(int fd, char *buffer, int length)
 		{
 			buf[j] = INF_ESCAPE;
 			j++;
-			buf[j] = INF_OR_FLAG;
+			buf[j] = INF_XOR_FLAG;
 		}
 
 		else if (buffer[i] == INF_ESCAPE)
 		{
 			buf[j] = INF_ESCAPE;
 			j++;
-			buf[j] = INF_OR_ESCAPE;
+			buf[j] = INF_XOR_ESCAPE;
 		}
 
 		else
@@ -265,14 +265,14 @@ int llwrite(int fd, char *buffer, int length)
 	{
 		buf[j] = INF_ESCAPE;
 		j++;
-		buf[j] = INF_OR_FLAG;
+		buf[j] = INF_XOR_FLAG;
 	}
 
 	else if (bcc2 == INF_ESCAPE)
 	{
 		buf[j] = INF_ESCAPE;
 		j++;
-		buf[j] = INF_OR_ESCAPE;
+		buf[j] = INF_XOR_ESCAPE;
 	}
 
 	else
@@ -301,6 +301,6 @@ int main(int argc, char **argv)
 {
 	int fd = setup(argc, argv);
 	llopen(fd);
-	if (llwrite(fd, "o joao e gay", 13) < 0)
+	if (llwrite(fd, "lamp", 5) < 0)
 		printf("Error sending trama");
 }
