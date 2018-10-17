@@ -381,11 +381,11 @@ int llread(int fd, char *buffer)
 
 		//i has num char read to buffer
 
-		char check;
+		char check = 0;
 		int j = 0;
 
 		for(; j < i; j++)
-		    check ^= buffer[j];
+			check ^= buffer[j];
 
 		if (check != bcc)
 		    rej = TRUE;
@@ -425,22 +425,18 @@ int main(int argc, char **argv)
     int fd = setup(argc, argv);
     llopen(fd);
 
+	int res;
+
     char data[100];
-    if (llread(fd, data) < 0)
-	{
-		printf("Error reading message\n");
-		return -1;
-	}
-	if (llread(fd, data) < 0)
-	{
-		printf("Error reading message\n");
-		return -1;
-	}
-	if (llread(fd, data) < 0)
+    if ((res = llread(fd, data)) < 0)
 	{
 		printf("Error reading message\n");
 		return -1;
 	}
 
-    printf("%s\n", data);
+	if ((res = llread(fd, data)) < 0)
+	{
+		printf("Error reading message\n");
+		return -1;
+	}   
 }
