@@ -421,15 +421,3 @@ int llwrite(int fd, char *buffer, int length)
 
 	return j;
 }
-
-int main(int argc, char **argv)
-{
-	int fd = setup(argc, argv);
-	llopen(fd);
-	if (llwrite(fd, "}~]^", 5) < 0)
-		printf("Error sending trama");
-	if (llwrite(fd, "}~]^", 5) < 0)
-		printf("Error sending trama");
-	if (llwrite(fd, "}~]^", 5) < 0)
-		printf("Error sending trama");
-}

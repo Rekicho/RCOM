@@ -6,12 +6,15 @@
 #define C_START 0x02
 #define C_END 0x03
 
+int setup(int argc, char **argv);
+void llopen(int fd);
+int llwrite(int fd, char *buffer, int length);
 
-int sendStart(FILE* fd, char* name, int size) {
+int sendControl(FILE* fd, char* name, int size, int option, int porta) {
 	 
 	int package_size = 5;
 	int size_length = 1;
-	int name_length = strlen(name);
+	int name_length = strlen(name) + 1;
 	
 	int byte_size = ceil(log2((double)size+1.0)/8);
 	printf("%d\n",size);
@@ -25,7 +28,7 @@ int sendStart(FILE* fd, char* name, int size) {
 	//CONFIRMAR TAMANHO
 
 	printf("%d\n",package_size);
-	package[0] = C_START;
+	package[0] = option;
 	package[1] = 0x00;
 	package[2] = byte_size;
 	int z=0;
@@ -56,12 +59,17 @@ int sendStart(FILE* fd, char* name, int size) {
 			printf("%d\n",package[z]);
 	}
 
+	llwrite(porta, package, package_size);
+
 	return 0;
 }
 
 int main(int argc, char *argv[])
 {
-    char *file = "toy.txt";
+    int porta = setup(argc, argv);
+	llopen(porta);
+
+	char *file = "toy.txt";
 	int size;	
 
 	FILE* fd = fopen(file, "r");
@@ -74,9 +82,11 @@ int main(int argc, char *argv[])
 	fseek(fd, 0L, SEEK_END);
 	size = ftell(fd)-1;
 
-	sendStart(fd, file, size);
+	sendControl(fd, file, size, C_START, porta);
+
+	//CICLO LER FICHEIRO -> ENVIA
+
+	sendControl(fd, file, size, C_END, porta);
 	
-
-
     return 0;
 }
