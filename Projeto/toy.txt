@@ -1,1 +1,351 @@
-TODA NOITE
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+
+Isso forma uma progressão geometria (vai multiplicando por 2) ({2, 4, 8, 16 , 32, 64, 128, etc). E a formula da somatória de um P.G é Sn = a1 (q^n - 1) / (q-1).
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.
+Então, sabemos que o primeiro termo (a1) é 1, que o quociente (q) é 2, o índice (n) é 8 (número de bits que existe em um byte), ao resolver essa equação, o 'Sn" dar 255.
+Isso se dar porque 255 é o numero maximo que um byte armazena, então vale a pena para a blizzard que cada macro tenha o tamanho máximo 256 bytes (255 caracteres + numero de caracteres), assim não ocupa muito os servidores da blizzard.

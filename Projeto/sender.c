@@ -11,29 +11,50 @@ int sendStart(FILE* fd, char* name, int size) {
 	 
 	int package_size = 5;
 	int size_length = 1;
-	int byte_size = 256;
+	int name_length = strlen(name);
+	
+	int byte_size = ceil(log2((double)size+1.0)/8);
+	printf("%d\n",size);
 
-	while (1) {
+	package_size += byte_size;
+	package_size += name_length;
 
-		if (size < byte_size) {
-			break;
-		} else {
-			byte_size *= 2;
-			size_length++;
-		}
-	}
-	package_size += size_length;
-	package_size += strlen(name);
 
-	char package[package_size];
+	char *package;
+	package = (char *)malloc(package_size);
+	//CONFIRMAR TAMANHO
+
+	printf("%d\n",package_size);
 	package[0] = C_START;
 	package[1] = 0x00;
-	int i = 0;
-/*	
-	for(i = 0; i < size_length; i++) {
-		package[2+i] = ((int)((long)size/pow(256,i))%256);
+	package[2] = byte_size;
+	int z=0;
+		
+	int i=byte_size+2;
+	for(; i>2;i--)
+	{	
+		
+		package[i]= (size >> (8*(z))) & 0xFF;
+		z++;
 	}
-*/
+	i=3+byte_size;
+	package[i]=0x01;
+	package[i+1]=name_length;
+
+	int j;	
+	for(j=0;j<name_length;j++)
+	{
+		package[i+j+2]= name[j];
+	}	
+
+	
+	for(z=0;z<package_size;z++)
+
+	{	if(z<i+2 )
+			printf("%d\n",package[z]);
+		else
+			printf("%d\n",package[z]);
+	}
 
 	return 0;
 }
@@ -51,11 +72,11 @@ int main(int argc, char *argv[])
     }
     
 	fseek(fd, 0L, SEEK_END);
-	size = ftell(fd);
+	size = ftell(fd)-1;
 
 	sendStart(fd, file, size);
 	
-	printf("%d\n", size);
+
 
     return 0;
 }
