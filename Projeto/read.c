@@ -37,6 +37,8 @@
 #define RR_ADDRESS 0x03
 #define RR_CONTROL0 0x05
 #define RR_CONTROL1 0x85
+#define REJ_CONTROL0 0x01
+#define REJ_CONTROL1 0x81
 
 int trama = 0;
 
@@ -191,9 +193,6 @@ void llopen(int fd)
 
 int check_initials(int fd)
 {
-    if(!(trama == 0 || trama == 1))
-        return -1;
-
     char inf[4];
 
     int recebido = FALSE;
@@ -258,7 +257,7 @@ int check_initials(int fd)
 	return temp_trama;
 }
 
-void sendRR(int fd){
+void sendRR(int fd, int rej){
 	char rr[5];
 
     rr[0] = RR_FLAG;
@@ -266,14 +265,32 @@ void sendRR(int fd){
 
 	if(trama == 0)
 	{
-		rr[2] = RR_CONTROL0;
-    	rr[3] = RR_ADDRESS ^ RR_CONTROL0;
+		if(rej)
+		{
+			rr[2] = REJ_CONTROL0;
+    		rr[3] = RR_ADDRESS ^ REJ_CONTROL0;
+		}
+
+		else
+		{
+			rr[2] = RR_CONTROL0;
+    		rr[3] = RR_ADDRESS ^ RR_CONTROL0;
+		}
 	}
 
 	else 
 	{
-		rr[2] = RR_CONTROL1;
-    	rr[3] = RR_ADDRESS ^ RR_CONTROL1;
+		if(rej)
+		{
+			rr[2] = REJ_CONTROL1;
+    		rr[3] = RR_ADDRESS ^ REJ_CONTROL1;
+		}
+
+		else
+		{
+			rr[2] = RR_CONTROL1;
+    		rr[3] = RR_ADDRESS ^ RR_CONTROL1;
+		}
 	}
 
     rr[4] = RR_FLAG;
@@ -293,8 +310,9 @@ void sendRR(int fd){
 int llread(int fd, char *buffer)
 {
 	int certo = FALSE;
+	int rej;
 	int temp_trama;
-	char data[1];
+	char data;
 	char bcc;
 	int recebido;
 	int i;
@@ -308,6 +326,7 @@ int llread(int fd, char *buffer)
 		if (temp_trama < 0)
 		    return temp_trama;
 
+		rej = FALSE;
 		recebido = FALSE;
 		i = 0;
 		destuffing = FALSE;
@@ -316,7 +335,7 @@ int llread(int fd, char *buffer)
 
 		while(!recebido)
 		{
-		    res = read(fd,data,1);
+		    res = read(fd,&data,1);
 
 		    if (res <= 0)
 		        continue;
@@ -325,16 +344,16 @@ int llread(int fd, char *buffer)
 			{
 				destuffing = FALSE;
 			
-				if(data[0] == INF_XOR_FLAG)
-					data[0] = INF_FLAG;
+				if(data == INF_XOR_FLAG)
+					data = INF_FLAG;
 
-				else if(data[0] == INF_XOR_ESCAPE)
-					data[0] = INF_ESCAPE;
+				else if(data == INF_XOR_ESCAPE)
+					data = INF_ESCAPE;
 
 				else return -1;
 			}
 
-		    else if (data[0] == INF_FLAG)
+		    else if (data == INF_FLAG)
 		    {
 		        if(i == 0)
 		            return -1;
@@ -344,7 +363,7 @@ int llread(int fd, char *buffer)
 		    }
 
 		    //DE-STUFFING
-			else if (data[0] == INF_ESCAPE)
+			else if (data == INF_ESCAPE)
 			{
 				destuffing = TRUE;
 				continue;
@@ -354,7 +373,7 @@ int llread(int fd, char *buffer)
 		    if (i != 0)
 		        buffer[i-1] = bcc;
 
-		    bcc = data[0];
+		    bcc = data;
 		    i++;
 		}
 
@@ -369,13 +388,20 @@ int llread(int fd, char *buffer)
 		    check ^= buffer[j];
 
 		if (check != bcc)
-		    return -1;
+		    rej = TRUE;
 
 		printf("Trama %d recebida!\n", temp_trama);
 
-		if(temp_trama == trama)
+		if(rej && temp_trama == trama)
 		{
-			sendRR(fd);
+			sendRR(fd,rej);	
+			printf("REJ%d enviado!\n", trama);
+			continue;
+		}
+
+		if(temp_trama != trama)
+		{
+			sendRR(fd,rej);
 			printf("RR%d re-enviado!\n", trama);
 			continue;
 		}	
@@ -387,7 +413,7 @@ int llread(int fd, char *buffer)
 
 		else trama = 0;
 
-		sendRR(fd);
+		sendRR(fd,rej);
 		printf("RR%d enviado!\n", trama);
 	}
 

@@ -37,6 +37,8 @@
 #define RR_ADDRESS 0x03
 #define RR_CONTROL0 0x05
 #define RR_CONTROL1 0x85
+#define REJ_CONTROL0 0x01
+#define REJ_CONTROL1 0x81
 
 #define MAX_ALARMS 3
 
@@ -210,9 +212,9 @@ void llopen(int fd)
 				desativa_alarme();
 			}
 		}
-
-		conta_alarme = 0;
 	}
+
+	conta_alarme = 0;
 }
 
 int llwrite(int fd, char *buffer, int length)
@@ -301,6 +303,7 @@ int llwrite(int fd, char *buffer, int length)
 	int recebido = FALSE;
 	i = 0;
 	int temp_trama = -1;
+	int rej = FALSE;
 
 	while (conta_alarme <= MAX_ALARMS && !recebido)
 	{
@@ -343,6 +346,16 @@ int llwrite(int fd, char *buffer, int length)
 					temp_trama = 0;
 				else if (rr[i] == (char)RR_CONTROL1)
 					temp_trama = 1;
+				else if (rr[i] == (char)REJ_CONTROL0)
+				{
+					rej = TRUE;
+					temp_trama = 0;
+				}
+				else if (rr[i] == (char)REJ_CONTROL1)
+				{
+					rej = TRUE;
+					temp_trama = 1;
+				}
 				else
 				{
 					if (rr[i] != RR_FLAG)
@@ -353,7 +366,9 @@ int llwrite(int fd, char *buffer, int length)
 				}
 				break;
 			case 3:
-				if (!((rr[i] == (char)(RR_ADDRESS ^ RR_CONTROL0) && temp_trama == 0) || (rr[i] == (char)(RR_ADDRESS ^ RR_CONTROL1) && temp_trama == 1)))
+				if ((rej && ((rr[i] == (char)(RR_ADDRESS ^ REJ_CONTROL0) && temp_trama == 0) || (rr[i] == (char)(RR_ADDRESS ^ REJ_CONTROL1) && temp_trama == 1))) || (!rej && ((rr[i] == (char)(RR_ADDRESS ^ RR_CONTROL0) && temp_trama == 0) || (rr[i] == (char)(RR_ADDRESS ^ RR_CONTROL1) && temp_trama == 1))))
+				break;
+				else
 				{
 					if (rr[i] != RR_FLAG)
 						i = 0;
@@ -361,7 +376,6 @@ int llwrite(int fd, char *buffer, int length)
 						i = 1;
 					continue;
 				}
-				break;
 			case 4:
 				if (rr[i] != RR_FLAG)
 				{
@@ -388,10 +402,11 @@ int llwrite(int fd, char *buffer, int length)
 
 		conta_alarme = 0;
 
-		if(trama == temp_trama)
+		if(rej || trama == temp_trama)
 		{
 			temp_trama = -1;
 			recebido = FALSE;
+			rej = FALSE;
 			printf("Re-sending trama I%d!\n",trama);
 			continue;
 		}
