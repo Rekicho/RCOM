@@ -36,11 +36,12 @@
 #define RR_FLAG 0x7E
 #define RR_ADDRESS 0x03
 #define RR_CONTROL0 0x05
-#define RR_CONTROL1 0x87
+#define RR_CONTROL1 0x85
 
 #define MAX_ALARMS 3
 
 int trama = 0;
+int flag_alarme = 0, conta_alarme = 0;
 
 int setup(int argc, char **argv)
 {
@@ -103,8 +104,6 @@ int setup(int argc, char **argv)
 	return fd;
 }
 
-int flag_alarme = 0, conta_alarme = 0;
-
 void atende_alarme()
 {
 	flag_alarme = 1;
@@ -115,7 +114,6 @@ void atende_alarme()
 void desativa_alarme()
 {
 	flag_alarme = 0;
-	conta_alarme = 0;
 	alarm(0);
 }
 
@@ -148,6 +146,8 @@ void llopen(int fd)
 		printf("SET enviado!\n");
 
 		alarm(3);
+
+		i = 0;
 
 		while (!flag_alarme && !recebido)
 		{
@@ -210,6 +210,8 @@ void llopen(int fd)
 				desativa_alarme();
 			}
 		}
+
+		conta_alarme = 0;
 	}
 }
 
@@ -297,6 +299,8 @@ int llwrite(int fd, char *buffer, int length)
 	char rr[5];
 	int res;
 	int recebido = FALSE;
+	i = 0;
+	int temp_trama = -1;
 
 	while (conta_alarme <= MAX_ALARMS && !recebido)
 	{
@@ -310,6 +314,8 @@ int llwrite(int fd, char *buffer, int length)
 		printf("Trama I%d enviada!\n", trama);
 
 		alarm(3);
+
+		i = 0;
 
 		while (!flag_alarme && !recebido)
 		{
@@ -333,7 +339,11 @@ int llwrite(int fd, char *buffer, int length)
 				}
 				break;
 			case 2:
-				if (!((rr[i] == RR_CONTROL0 && trama == 0) || (rr[i] == RR_CONTROL1 && trama == 1)))
+				if (rr[i] == (char)RR_CONTROL0)
+					temp_trama = 0;
+				else if (rr[i] == (char)RR_CONTROL1)
+					temp_trama = 1;
+				else
 				{
 					if (rr[i] != RR_FLAG)
 						i = 0;
@@ -343,7 +353,7 @@ int llwrite(int fd, char *buffer, int length)
 				}
 				break;
 			case 3:
-				if (!((rr[i] == (RR_ADDRESS ^ RR_CONTROL0) && trama == 1) || (rr[i] == (RR_ADDRESS ^ RR_CONTROL1) && trama == 0)))
+				if (!((rr[i] == (char)(RR_ADDRESS ^ RR_CONTROL0) && temp_trama == 0) || (rr[i] == (char)(RR_ADDRESS ^ RR_CONTROL1) && temp_trama == 1)))
 				{
 					if (rr[i] != RR_FLAG)
 						i = 0;
@@ -367,17 +377,29 @@ int llwrite(int fd, char *buffer, int length)
 
 			if (i == RR_SIZE)
 			{
-				recebido = TRUE;
-
-				if (trama == 0)
-					trama = 1;
-
-				else trama = 0;
-
-				printf("RR%d recebido!\n", trama);
 				desativa_alarme();
+				recebido = TRUE;
+				printf("RR%d recebido!\n", temp_trama);
 			}
 		}
+
+		if(!recebido)
+			continue;
+
+		conta_alarme = 0;
+
+		if(trama == temp_trama)
+		{
+			temp_trama = -1;
+			recebido = FALSE;
+			printf("Re-sending trama I%d!\n",trama);
+			continue;
+		}
+
+		if (trama == 0)
+			trama = 1;
+
+		else trama = 0;
 	}
 
 	free(buf);
@@ -389,6 +411,10 @@ int main(int argc, char **argv)
 {
 	int fd = setup(argc, argv);
 	llopen(fd);
+	if (llwrite(fd, "}~]^", 5) < 0)
+		printf("Error sending trama");
+	if (llwrite(fd, "}~]^", 5) < 0)
+		printf("Error sending trama");
 	if (llwrite(fd, "}~]^", 5) < 0)
 		printf("Error sending trama");
 }

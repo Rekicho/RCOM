@@ -36,7 +36,7 @@
 #define RR_FLAG 0x7E
 #define RR_ADDRESS 0x03
 #define RR_CONTROL0 0x05
-#define RR_CONTROL1 0x87
+#define RR_CONTROL1 0x85
 
 int trama = 0;
 
@@ -198,6 +198,7 @@ int check_initials(int fd)
 
     int recebido = FALSE;
     int i = 0, res = 0;
+	int temp_trama = -1;
 
     while (!recebido)
     {
@@ -221,7 +222,11 @@ int check_initials(int fd)
             }
             break;
         case 2:
-            if (!((inf[i] == INF_CONTROL0 && trama == 0) || (inf[i] == INF_CONTROL1 && trama == 1)))
+			if (inf[i] == INF_CONTROL0)
+					temp_trama = 0;
+			else if (inf[i] == INF_CONTROL1)
+					temp_trama = 1;
+            else
             {
                 if (inf[i] != INF_FLAG)
                     i = 0;
@@ -231,7 +236,7 @@ int check_initials(int fd)
             }
             break;
         case 3:
-            if (!((inf[i] == (INF_ADDRESS ^ INF_CONTROL0) && trama == 0) || (inf[i] == (INF_ADDRESS ^ INF_CONTROL1) && trama == 1)))
+            if (!((inf[i] == (INF_ADDRESS ^ INF_CONTROL0) && temp_trama == 0) || (inf[i] == (INF_ADDRESS ^ INF_CONTROL1) && temp_trama == 1)))
             {
                 if (inf[i] != INF_FLAG)
                     i = 0;
@@ -250,7 +255,7 @@ int check_initials(int fd)
             recebido = TRUE;
     }
 
-    return 0;
+	return temp_trama;
 }
 
 void sendRR(int fd){
@@ -279,7 +284,6 @@ void sendRR(int fd){
     while (!enviado)
     {
         res = write(fd, rr, RR_SIZE);
-        printf("RR%d enviado!\n", trama);
 
         if (res == RR_SIZE)
             enviado = TRUE;
@@ -288,82 +292,104 @@ void sendRR(int fd){
 
 int llread(int fd, char *buffer)
 {
-    int res = check_initials(fd);
+	int certo = FALSE;
+	int temp_trama;
+	char data[1];
+	char bcc;
+	int recebido;
+	int i;
+	int destuffing;
+	int res;
+	
+	while(!certo)
+	{
+		temp_trama = check_initials(fd);
 
-    if (res < 0)
-        return res;
+		if (temp_trama < 0)
+		    return temp_trama;
 
-    char data[1];
-    char bcc;
-    int recebido = FALSE;
-    int i = 0;
-	int destuffing = FALSE;
+		recebido = FALSE;
+		i = 0;
+		destuffing = FALSE;
+		res = 0;
 
-    while(!recebido)
-    {
-        res = read(fd,data,1);
 
-        if (res <= 0)
-            continue;
-
-		if (destuffing)
+		while(!recebido)
 		{
-			destuffing = FALSE;
+		    res = read(fd,data,1);
+
+		    if (res <= 0)
+		        continue;
+
+			if (destuffing)
+			{
+				destuffing = FALSE;
 			
-			if(data[0] == INF_XOR_FLAG)
-				data[0] = INF_FLAG;
+				if(data[0] == INF_XOR_FLAG)
+					data[0] = INF_FLAG;
 
-			else if(data[0] == INF_XOR_ESCAPE)
-				data[0] = INF_ESCAPE;
+				else if(data[0] == INF_XOR_ESCAPE)
+					data[0] = INF_ESCAPE;
 
-			else return -1;
+				else return -1;
+			}
+
+		    else if (data[0] == INF_FLAG)
+		    {
+		        if(i == 0)
+		            return -1;
+
+		        recebido = TRUE;
+		        break;
+		    }
+
+		    //DE-STUFFING
+			else if (data[0] == INF_ESCAPE)
+			{
+				destuffing = TRUE;
+				continue;
+			}
+			
+
+		    if (i != 0)
+		        buffer[i-1] = bcc;
+
+		    bcc = data[0];
+		    i++;
 		}
 
-        else if (data[0] == INF_FLAG)
-        {
-            if(i == 0)
-                return -1;
+		i--; //BCC doesn't count
 
-            recebido = TRUE;
-            break;
-        }
+		//i has num char read to buffer
 
-        //DE-STUFFING
-		else if (data[0] == INF_ESCAPE)
+		char check;
+		int j = 0;
+
+		for(; j < i; j++)
+		    check ^= buffer[j];
+
+		if (check != bcc)
+		    return -1;
+
+		printf("Trama %d recebida!\n", temp_trama);
+
+		if(temp_trama == trama)
 		{
-			destuffing = TRUE;
+			sendRR(fd);
+			printf("RR%d re-enviado!\n", trama);
 			continue;
-		}
-			
+		}	
 
-        if (i != 0)
-            buffer[i-1] = bcc;
+		certo = TRUE;
+	
+		if(trama == 0)
+			trama = 1;
 
-        bcc = data[0];
-        i++;
-    }
+		else trama = 0;
 
-	i--; //BCC doesn't count
-
-    //i has num char read to buffer
-
-    char check;
-    int j = 0;
-
-    for(; j < i; j++)
-        check ^= buffer[j];
-
-    if (check != bcc)
-        return -1;
-
-	printf("Trama %d recebida!\n",trama);
-
-	if(trama == 0)
-		trama = 1;
-
-	else trama = 0;
-
-	sendRR(fd);
+		sendRR(fd);
+		printf("RR%d enviado!\n", trama);
+	}
 
     return i;
 }
@@ -375,6 +401,16 @@ int main(int argc, char **argv)
 
     char data[100];
     if (llread(fd, data) < 0)
+	{
+		printf("Error reading message\n");
+		return -1;
+	}
+	if (llread(fd, data) < 0)
+	{
+		printf("Error reading message\n");
+		return -1;
+	}
+	if (llread(fd, data) < 0)
 	{
 		printf("Error reading message\n");
 		return -1;
