@@ -425,7 +425,12 @@ int main(int argc, char **argv)
     int fd = setup(argc, argv);
     llopen(fd);
 
+    FILE* fp = fopen("sender.c", "ab+");
+
+    int ficheiro = open("sender.c", O_WRONLY);
+
 	int res;
+char first = 0;
 
     char data[100];
     if ((res = llread(fd, data)) < 0)
@@ -434,9 +439,17 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-	if ((res = llread(fd, data)) < 0)
-	{
-		printf("Error reading message\n");
-		return -1;
-	}   
+   
+while(1)
+{
+	res = llread(fd, data);
+	first = data[0];
+
+	if(first == 3)
+	 return 0;
+	write(ficheiro,data,res);
+}
+
+
+ 
 }

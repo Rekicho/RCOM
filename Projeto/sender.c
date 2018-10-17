@@ -2,6 +2,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <math.h>
+#include <unistd.h>
 
 #define C_START 0x02
 #define C_END 0x03
@@ -69,10 +70,11 @@ int main(int argc, char *argv[])
     int porta = setup(argc, argv);
 	llopen(porta);
 
-	char *file = "toy.txt";
+	char *file = "sender.c";
 	int size;	
 
 	FILE* fd = fopen(file, "r");
+	int ficheiro = open("sender.c",O_RDONLY);
 	
 	if (fd == 0) {
 		printf("Error: Not a file\n");
@@ -84,7 +86,13 @@ int main(int argc, char *argv[])
 
 	sendControl(fd, file, size, C_START, porta);
 
-	//CICLO LER FICHEIRO -> ENVIA
+	int res = 0;
+	char buf[100];
+	do
+	{
+		res = read(ficheiro, buf, 100);
+		llwrite(porta, buf, res);
+	} while(res != 0);
 
 	sendControl(fd, file, size, C_END, porta);
 	
