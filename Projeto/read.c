@@ -20,7 +20,8 @@
 
 #define UA_SIZE 5
 #define UA_FLAG 0x7E
-#define UA_ADDRESS 0x03
+#define UA_ADDRESS_SENDER 0x03
+#define UA_ADDRESS_RECEIVER 0x01
 #define UA_CONTROL 0x07
 
 #define INF_INIT_SIZE 4
@@ -39,6 +40,12 @@
 #define RR_CONTROL1 0x85
 #define REJ_CONTROL0 0x01
 #define REJ_CONTROL1 0x81
+
+#define DISC_SIZE 5
+#define DISC_FLAG 0x7E
+#define DISC_ADDRESS_SENDER 0x03
+#define DISC_ADDRESS_RECEIVER 0x01
+#define DISC_CONTROL 0x0B
 
 int trama = 0;
 
@@ -110,9 +117,9 @@ void llopen(int fd)
     char ua[5];
 
     ua[0] = UA_FLAG;
-    ua[1] = UA_ADDRESS;
+    ua[1] = UA_ADDRESS_SENDER;
     ua[2] = UA_CONTROL;
-    ua[3] = UA_ADDRESS ^ UA_CONTROL;
+    ua[3] = UA_ADDRESS_SENDER ^ UA_CONTROL;
     ua[4] = UA_FLAG;
 
     int recebido = FALSE;
@@ -420,14 +427,104 @@ int llread(int fd, char *buffer)
     return i;
 }
 
+int llclose(int fd)
+{
+    char disc_sender[5];
+
+    char disc_receiver[5];
+
+    disc_receiver[0] = DISC_FLAG;
+    disc_receiver[1] = DISC_ADDRESS_RECEIVER;
+    disc_receiver[2] = DISC_CONTROL;
+    disc_receiver[3] = DISC_ADDRESS_RECEIVER ^ DISC_CONTROL;
+    disc_receiver[4] = DISC_FLAG;
+
+    int recebido = FALSE;
+    int i = 0, res = 0;
+
+    while (!recebido)
+    {
+        res = read(fd, disc_sender + i, 1);
+
+        if (res <= 0)
+            continue;
+
+        switch (i)
+        {
+        case 0:
+            if (disc_sender[i] != DISC_FLAG)
+                continue;
+            break;
+        case 1:
+            if (disc_sender[i] != DISC_ADDRESS_SENDER)
+            {
+                if (disc_sender[i] != DISC_FLAG)
+                    i = 0;
+                continue;
+            }
+            break;
+        case 2:
+            if (disc_sender[i] != DISC_CONTROL)
+            {
+                if (disc_sender[i] != DISC_FLAG)
+                    i = 0;
+                else
+                    i = 1;
+                continue;
+            }
+            break;
+        case 3:
+            if (disc_sender[i] != (DISC_ADDRESS_SENDER ^ DISC_CONTROL))
+            {
+                if (disc_sender[i] != DISC_FLAG)
+                    i = 0;
+                else
+                    i = 1;
+                continue;
+            }
+            break;
+        case 4:
+            if (disc_sender[i] != DISC_FLAG)
+            {
+                i = 0;
+                continue;
+            }
+            break;
+        default:
+            break;
+        }
+
+        i++;
+
+        if (i == DISC_SIZE)
+        {
+            recebido = TRUE;
+            printf("DISC recebido!\n");
+        }
+    }
+
+    int enviado = FALSE;
+
+    while (!enviado)
+    {
+        res = write(fd, disc_receiver, DISC_SIZE);
+        printf("DISC enviado!\n");
+
+        if (res == DISC_SIZE)
+            enviado = TRUE;
+    }
+
+	return 1;
+}
+
 int main(int argc, char **argv)
 {
     int fd = setup(argc, argv);
     llopen(fd);
 
-    FILE* fp = fopen("sender.c", "ab+");
+    FILE* fp = fopen("pinguim.gif", "ab+");
 
-    int ficheiro = open("sender.c", O_WRONLY);
+    int ficheiro = open("pinguim.gif", O_WRONLY);
 
 	int res;
 char first = 0;

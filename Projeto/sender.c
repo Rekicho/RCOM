@@ -10,6 +10,7 @@
 int setup(int argc, char **argv);
 void llopen(int fd);
 int llwrite(int fd, char *buffer, int length);
+int llclose(int fd);
 
 int sendControl(FILE* fd, char* name, int size, int option, int porta) {
 	 
@@ -18,7 +19,6 @@ int sendControl(FILE* fd, char* name, int size, int option, int porta) {
 	int name_length = strlen(name) + 1;
 	
 	int byte_size = ceil(log2((double)size+1.0)/8);
-	printf("%d\n",size);
 
 	package_size += byte_size;
 	package_size += name_length;
@@ -27,8 +27,6 @@ int sendControl(FILE* fd, char* name, int size, int option, int porta) {
 	char *package;
 	package = (char *)malloc(package_size);
 	//CONFIRMAR TAMANHO
-
-	printf("%d\n",package_size);
 	package[0] = option;
 	package[1] = 0x00;
 	package[2] = byte_size;
@@ -49,15 +47,6 @@ int sendControl(FILE* fd, char* name, int size, int option, int porta) {
 	for(j=0;j<name_length;j++)
 	{
 		package[i+j+2]= name[j];
-	}	
-
-	
-	for(z=0;z<package_size;z++)
-
-	{	if(z<i+2 )
-			printf("%d\n",package[z]);
-		else
-			printf("%d\n",package[z]);
 	}
 
 	llwrite(porta, package, package_size);
@@ -70,11 +59,11 @@ int main(int argc, char *argv[])
     int porta = setup(argc, argv);
 	llopen(porta);
 
-	char *file = "sender.c";
+	char *file = "pinguim.gif";
 	int size;	
 
 	FILE* fd = fopen(file, "r");
-	int ficheiro = open("sender.c",O_RDONLY);
+	int ficheiro = open("pinguim.gif",O_RDONLY);
 	
 	if (fd == 0) {
 		printf("Error: Not a file\n");
@@ -83,6 +72,7 @@ int main(int argc, char *argv[])
     
 	fseek(fd, 0L, SEEK_END);
 	size = ftell(fd)-1;
+	printf("%d",size);
 
 	sendControl(fd, file, size, C_START, porta);
 
@@ -95,6 +85,8 @@ int main(int argc, char *argv[])
 	} while(res != 0);
 
 	sendControl(fd, file, size, C_END, porta);
+
+	llclose(fd);
 	
     return 0;
 }

@@ -21,7 +21,8 @@
 
 #define UA_SIZE 5
 #define UA_FLAG 0x7E
-#define UA_ADDRESS 0x03
+#define UA_ADDRESS_SENDER 0x03
+#define UA_ADDRESS_RECEIVER 0x01
 #define UA_CONTROL 0x07
 
 #define INF_FLAG 0x7E
@@ -39,6 +40,12 @@
 #define RR_CONTROL1 0x85
 #define REJ_CONTROL0 0x01
 #define REJ_CONTROL1 0x81
+
+#define DISC_SIZE 5
+#define DISC_FLAG 0x7E
+#define DISC_ADDRESS_SENDER 0x03
+#define DISC_ADDRESS_RECEIVER 0x01
+#define DISC_CONTROL 0x0B
 
 #define MAX_ALARMS 3
 
@@ -165,7 +172,7 @@ void llopen(int fd)
 					continue;
 				break;
 			case 1:
-				if (ua[i] != UA_ADDRESS)
+				if (ua[i] != UA_ADDRESS_SENDER)
 				{
 					if (ua[i] != UA_FLAG)
 						i = 0;
@@ -183,7 +190,7 @@ void llopen(int fd)
 				}
 				break;
 			case 3:
-				if (ua[i] != (UA_ADDRESS ^ UA_CONTROL))
+				if (ua[i] != (UA_ADDRESS_SENDER ^ UA_CONTROL))
 				{
 					if (ua[i] != UA_FLAG)
 						i = 0;
@@ -420,4 +427,123 @@ int llwrite(int fd, char *buffer, int length)
 	free(buf);
 
 	return j;
+}
+
+int llclose(int fd)
+{
+	char disc_sender[5];
+
+	disc_sender[0] = DISC_FLAG;
+	disc_sender[1] = DISC_ADDRESS_SENDER;
+	disc_sender[2] = DISC_CONTROL;
+	disc_sender[3] = DISC_ADDRESS_SENDER ^ DISC_CONTROL;
+	disc_sender[4] = DISC_FLAG;
+
+	char disc_receiver[5];
+
+	(void)signal(SIGALRM, atende_alarme);
+
+	int recebido = FALSE;
+	int i = 0, res = 0;
+
+	while (conta_alarme <= MAX_ALARMS && !recebido)
+	{
+		desativa_alarme();
+
+		res = write(fd, disc_sender, DISC_SIZE);
+
+		if (res != DISC_SIZE)
+			continue;
+		
+		printf("DISC enviado!\n");
+
+		alarm(3);
+
+		i = 0;
+
+		while (!flag_alarme && !recebido)
+		{
+			res = read(fd, disc_receiver + i, 1);
+
+			if (res <= 0)
+				continue;
+
+			switch (i)
+			{
+			case 0:
+				if (disc_receiver[i] != DISC_FLAG)
+					continue;
+				break;
+			case 1:
+				if (disc_receiver[i] != DISC_ADDRESS_RECEIVER)
+				{
+					if (disc_receiver[i] != DISC_FLAG)
+						i = 0;
+					continue;
+				}
+				break;
+			case 2:
+				if (disc_receiver[i] != DISC_CONTROL)
+				{
+					if (disc_receiver[i] != DISC_FLAG)
+						i = 0;
+					else
+						i = 1;
+					continue;
+				}
+				break;
+			case 3:
+				if (disc_receiver[i] != (DISC_ADDRESS_RECEIVER ^ DISC_CONTROL))
+				{
+					if (disc_receiver[i] != DISC_FLAG)
+						i = 0;
+					else
+						i = 1;
+					continue;
+				}
+				break;
+			case 4:
+				if (disc_receiver[i] != DISC_FLAG)
+				{
+					i = 0;
+					continue;
+				}
+				break;
+			default:
+				break;
+			}
+
+			i++;
+
+			if (i == DISC_SIZE)
+			{
+				recebido = TRUE;
+				printf("DISC recebido!\n");
+				desativa_alarme();
+			}
+		}
+	}
+
+	conta_alarme = 0;
+
+	char ua[5];
+
+    ua[0] = UA_FLAG;
+    ua[1] = UA_ADDRESS_RECEIVER;
+    ua[2] = UA_CONTROL;
+    ua[3] = UA_ADDRESS_RECEIVER ^ UA_CONTROL;
+    ua[4] = UA_FLAG;
+
+	int enviado = FALSE;
+
+    while (!enviado)
+    {
+        res = write(fd, ua, UA_SIZE);
+        printf("UA enviado!\n");
+
+        if (res == UA_SIZE)
+            enviado = TRUE;
+    }
+
+	return 1;
 }
