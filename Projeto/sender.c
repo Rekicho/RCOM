@@ -1,13 +1,10 @@
+#include "constants.h"
+
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <math.h>
 #include <unistd.h>
-
-#define C_START 0x02
-#define C_END 0x03
-#define DATA_C 0x01
-#define PACKET_SIZE 256
 
 int setup(int argc, char **argv);
 void llopen(int fd);

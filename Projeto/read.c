@@ -1,55 +1,7 @@
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <termios.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
+#include "constants.h"
 
-#define BAUDRATE B38400
-#define MODEMDEVICE "/dev/ttyS1"
-#define _POSIX_SOURCE 1 /* POSIX compliant source */
-#define FALSE 0
-#define TRUE 1
-
-#define SET_SIZE 5
-#define SET_FLAG 0x7E
-#define SET_ADDRESS 0x03
-#define SET_CONTROL 0x03
-
-#define UA_SIZE 5
-#define UA_FLAG 0x7E
-#define UA_ADDRESS_SENDER 0x03
-#define UA_ADDRESS_RECEIVER 0x01
-#define UA_CONTROL 0x07
-
-#define INF_INIT_SIZE 4
-#define INF_FLAG 0x7E
-#define INF_ADDRESS 0x03
-#define INF_CONTROL0 0x00
-#define INF_CONTROL1 0x40
-#define INF_ESCAPE 0x7D
-#define INF_XOR_FLAG 0x5E
-#define INF_XOR_ESCAPE 0x5D
-
-#define RR_SIZE 5
-#define RR_FLAG 0x7E
-#define RR_ADDRESS 0x03
-#define RR_CONTROL0 0x05
-#define RR_CONTROL1 0x85
-#define REJ_CONTROL0 0x01
-#define REJ_CONTROL1 0x81
-
-#define DISC_SIZE 5
-#define DISC_FLAG 0x7E
-#define DISC_ADDRESS_SENDER 0x03
-#define DISC_ADDRESS_RECEIVER 0x01
-#define DISC_CONTROL 0x0B
-
-#define PACKET_SIZE 256
-
-int trama = 0;
+int flag_alarme = 0;
+int conta_alarme = 0;
 
 int setup(int argc, char **argv)
 {
