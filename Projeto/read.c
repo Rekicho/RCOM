@@ -47,6 +47,8 @@
 #define DISC_ADDRESS_RECEIVER 0x01
 #define DISC_CONTROL 0x0B
 
+#define PACKET_SIZE 256
+
 int trama = 0;
 
 int setup(int argc, char **argv)
@@ -529,7 +531,7 @@ int main(int argc, char **argv)
 	int res;
 char first = 0;
 
-    char data[100];
+    char data[PACKET_SIZE + 4];
     if ((res = llread(fd, data)) < 0)
 	{
 		printf("Error reading message\n");
