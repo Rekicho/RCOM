@@ -114,7 +114,7 @@ int transmit(char *port, char *file)
 
 	sendControl(serial, file, size, C_END);  
 
-	close(file);
+	close(fd);
 
 	return llclose(serial, TRANSMITTER);
 }
