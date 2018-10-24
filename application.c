@@ -73,10 +73,7 @@ int transmit(char *port, char *file)
 	int serial = llopen(port, TRANSMITTER);
 
     if (serial < 0)
-    {
-        printf("Couldn't open serial port %s\n", port);
         return -1;
-    }  
 
 	FILE* ficheiro = fopen(file, "r");
 
@@ -109,7 +106,8 @@ int transmit(char *port, char *file)
 			break;
 
 		setDataPackage(buf, res, n);
-		llwrite(serial, buf, res + 4);
+		if (llwrite(serial, buf, res + 4) < 0)
+			return -1;
 
 		n++;
 	}
@@ -170,10 +168,7 @@ int receive(char *port)
     int serial = llopen(port, RECEIVER);
 
     if (serial < 0)
-    {
-        printf("Couldn't open serial port %s\n", port);
         return -1;
-    }
 
     char buffer[PACKET_SIZE];
 
@@ -192,6 +187,9 @@ int receive(char *port)
     while(!end)
     {
         res = llread(serial, buffer);
+		if(res < 0)
+			return res;
+
         end = interpretPacket(buffer, res, &file, n);
 		n++;
     }
@@ -229,5 +227,6 @@ int main(int argc, char **argv)
         return receive(argv[2]);
     }
 
+	printf("Usage: [transmit/receive] SerialPort [filename]\n");
     return 1;
 }

@@ -85,10 +85,16 @@ int setup(char* port)
 
     printf("New termios structure set\n");
 
+	struct sigaction action;
+    action.sa_handler = atende_alarme;
+    sigemptyset(&action.sa_mask);
+    action.sa_flags = 0;
+    sigaction(SIGALRM, &action, NULL);
+
     return fd;
 }
 
-void llopenTransmitter(int fd)
+int llopenTransmitter(int fd)
 {
 	char set[5];
 
@@ -99,8 +105,6 @@ void llopenTransmitter(int fd)
 	set[4] = SET_FLAG;
 
 	char ua[5];
-
-	(void)signal(SIGALRM, atende_alarme);
 
 	int recebido = FALSE;
 	int i = 0, res = 0;
@@ -183,10 +187,15 @@ void llopenTransmitter(int fd)
 		}
 	}
 
+	if(!recebido)
+		return -1;
+
 	conta_alarme = 0;
+
+	return 0;
 }
 
-void llopenReceiver(int fd)
+int llopenReceiver(int fd)
 {
     char set[5];
 
@@ -272,17 +281,23 @@ void llopenReceiver(int fd)
         if (res == UA_SIZE)
             enviado = TRUE;
     }
+
+	return 0;
 }
 
 int llopen(char *port, int flag)
 {
 	int fd = setup(port);
+	int res;
 
 	if (flag == TRANSMITTER)
-		llopenTransmitter(fd);
+		res = llopenTransmitter(fd);
 
 	else if (flag == RECEIVER)
-		llopenReceiver(fd);
+		res = llopenReceiver(fd);
+
+	if (res < 0)
+		return res;
 
 	return fd;
 }
@@ -478,8 +493,6 @@ int llwrite(int fd, char *buffer, int length)
 	buf[j] = INF_FLAG;
 
 	j++; // j contém numero de chars usados
-
-	(void)signal(SIGALRM, atende_alarme);
 
 	char rr[5];
 	int res;
@@ -730,8 +743,6 @@ int llcloseTransmitter(int fd)
 
 	char disc_receiver[5];
 
-	(void)signal(SIGALRM, atende_alarme);
-
 	int recebido = FALSE;
 	int i = 0, res = 0;
 
@@ -812,6 +823,9 @@ int llcloseTransmitter(int fd)
 			}
 		}
 	}
+
+	if(!recebido)
+		return -1;
 
 	conta_alarme = 0;
 
