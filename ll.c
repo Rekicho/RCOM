@@ -589,7 +589,10 @@ int llwrite(int fd, char *buffer, int length)
 			{
 				desativa_alarme();
 				recebido = TRUE;
-				printf("RR%d recebido!\n", temp_trama);
+				if(rej)
+					printf("REJ%d recebido!\n", temp_trama);
+
+				else printf("RR%d recebido!\n", temp_trama);
 			}
 		}
 
