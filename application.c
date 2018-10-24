@@ -8,10 +8,9 @@
 #include <unistd.h>
 #include <string.h>
 
-void sendControl(char* name, int size, int option, int porta) {
+void sendControl(int porta, char* name, int size, int option) {
 	 
 	int package_size = 5;
-	int size_length = 1;
 	int name_length = strlen(name) + 1;
 	
 	int byte_size = ceil(log2((double)size+1.0)/8);
@@ -72,7 +71,7 @@ void setDataPackage(char* buf, int data_size, int n) {
 
 int transmit(char *port, char *file)
 {
-	int serial = llopen(port, RECEIVER);
+	int serial = llopen(port, TRANSMITTER);
 
     if (serial < 0)
     {
@@ -88,13 +87,13 @@ int transmit(char *port, char *file)
     }
 
 	fseek(ficheiro, 0L, SEEK_END);
-	size = ftell(ficheiro)-1;
+	int size = ftell(ficheiro)-1;
 
 	fclose(ficheiro);
 
 	int n = 0; //PACKET n = 0 será START, a partir de n = 1 dados
 
-	sendControl(file, size, C_START, port);
+	sendControl(serial, file, size, C_START);
 
 	n++;
 
@@ -106,13 +105,13 @@ int transmit(char *port, char *file)
 	{
 		res = read(fd, buf, PACKET_SIZE - 4);
 		setDataPackage(buf, res, n);
-		llwrite(port, buf, res);
+		llwrite(serial, buf, res);
 		n++;
 	} while(res != 0);
 
-	sendControl(file, size, C_END, port);  
+	sendControl(serial, file, size, C_END);  
 
-	return llclose(port, buffer);
+	return llclose(serial, TRANSMITTER);
 }
 
 int interpretPacket(char* buf, int res, int* file, int n)
@@ -125,11 +124,11 @@ int interpretPacket(char* buf, int res, int* file, int n)
 		
 		for(;i<res;i++, j++)
 		{
-			filename[j]=buf[i];
+			file_name[j]=buf[i];
 		}
 
-		int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC , 0644);
-		&file = fd;
+		int fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC , 0644);
+		*file = fd;
 
 		free(file_name);
 		return FALSE;
@@ -153,9 +152,11 @@ int interpretPacket(char* buf, int res, int* file, int n)
 			data[i] = buf[i+4];
 		}
 
-		write(file, data, package_size);
+		write(*file, data, package_size);
 		return FALSE;
-	}	
+	}
+
+	return FALSE;	
 }
 
 int receive(char *port)
@@ -174,10 +175,13 @@ int receive(char *port)
 
     int file;
 
+	int n = 0;
+
 	interpretPacket(buffer, res, &file, n); //PACKET n = 0 será START, a partir de n = 1 dados
 
+	n++;
+
     int end = FALSE;
-	int n = 0;
 
     while(!end)
     {
@@ -186,7 +190,7 @@ int receive(char *port)
 		n++;
     }
 
-    return llclose(port, buffer);
+    return llclose(serial, RECEIVER);
 }
 
 int main(int argc, char **argv)
@@ -199,7 +203,7 @@ int main(int argc, char **argv)
 
     if (argc == 4)
     {
-        if (argv[1] != "transmit")
+        if (!strcmp(argv[1],"transmit"))
         {
             printf("Usage: [transmit/receive] SerialPort [filename]\n");
             return -1;
@@ -210,7 +214,7 @@ int main(int argc, char **argv)
 
 	if (argc == 3)
     {
-        if (argv[1] != "receive")
+        if (!strcmp(argv[1],"receive"))
         {
             printf("Usage: [transmit/receive] SerialPort [filename]\n");
             return -1;
