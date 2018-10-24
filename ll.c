@@ -12,7 +12,7 @@
 #include <signal.h>
 
 int trama = 0;
-int flag_alarme = 0
+int flag_alarme = 0;
 int conta_alarme = 0;
 
 void atende_alarme()
@@ -28,14 +28,12 @@ void desativa_alarme()
 	alarm(0);
 }
 
-int setup(int argc, char **argv)
+int setup(char* port)
 {
     int fd;
     struct termios oldtio, newtio;
 
-    if ((argc < 2) ||
-        ((strcmp("/dev/ttyS0", argv[1]) != 0) &&
-         (strcmp("/dev/ttyS1", argv[1]) != 0)))
+    if (((strcmp("/dev/ttyS0", port) != 0) && (strcmp("/dev/ttyS1", port) != 0)))
     {
         printf("Usage:\tnserial SerialPort\n\tex: nserial /dev/ttyS1\n");
         exit(1);
@@ -47,10 +45,10 @@ int setup(int argc, char **argv)
 
   */
 
-    fd = open(argv[1], O_RDWR | O_NOCTTY);
+    fd = open(port, O_RDWR | O_NOCTTY);
     if (fd < 0)
     {
-        perror(argv[1]);
+        perror(port);
         exit(-1);
     }
 
