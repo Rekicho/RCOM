@@ -114,6 +114,8 @@ int transmit(char *port, char *file)
 
 	sendControl(serial, file, size, C_END);  
 
+	close(file);
+
 	return llclose(serial, TRANSMITTER);
 }
 
@@ -193,6 +195,8 @@ int receive(char *port)
         end = interpretPacket(buffer, res, &file, n);
 		n++;
     }
+
+	close(file);
 
     return llclose(serial, RECEIVER);
 }

@@ -848,6 +848,8 @@ int llcloseTransmitter(int fd)
             enviado = TRUE;
     }
 
+	close(fd);
+
 	return 1;
 }
 
@@ -937,6 +939,8 @@ int llcloseReceiver(int fd)
         if (res == DISC_SIZE)
             enviado = TRUE;
     }
+
+	close(fd);
 
 	return 1;
 }
