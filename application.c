@@ -22,12 +22,10 @@ void sendControl(int porta, char* name, int size, int option) {
 	char *package;
 	package = (char *)malloc(package_size);
 
-	printf("%d\n",package_size);
 	package[0] = option;
 	package[1] = 0x00;
 	package[2] = byte_size;
 	int z=0;
-		
 	int i=byte_size+2;
 	for(; i>2;i--)
 	{	
@@ -43,7 +41,7 @@ void sendControl(int porta, char* name, int size, int option) {
 	for(j=0;j<name_length;j++)
 	{
 		package[i+j+2]= name[j];
-	}	
+	}
 
 	llwrite(porta, package, package_size);
 
@@ -62,7 +60,8 @@ void setDataPackage(char* buf, int data_size, int n) {
 
 	int i;
 
-	for (i = 0; i < data_size; i++) {
+	for (i = 0; i < data_size; i++) 
+	{
 		buf[i+4] = data[i];
 	}	
 
@@ -101,13 +100,19 @@ int transmit(char *port, char *file)
 
 	int res;
 	char buf[PACKET_SIZE];
-	do
+
+	while(res != 0)
 	{
 		res = read(fd, buf, PACKET_SIZE - 4);
+
+		if(res == 0)
+			break;
+
 		setDataPackage(buf, res, n);
-		llwrite(serial, buf, res);
+		llwrite(serial, buf, res + 4);
+
 		n++;
-	} while(res != 0);
+	}
 
 	sendControl(serial, file, size, C_END);  
 
@@ -142,17 +147,18 @@ int interpretPacket(char* buf, int res, int* file, int n)
 
 	if(buf[0]==C_DATA)
 	{
-		int package_size = res - 4;
-		char* data = (char *)malloc(package_size);
+		char* data = (char *)malloc(res - 4);
 
 		int i;
 
-		for (i = 0; i < package_size; i++) 
+		for (i = 0; i < res - 4; i++) 
 		{
 			data[i] = buf[i+4];
 		}
 
-		write(*file, data, package_size);
+		write(*file, data, res - 4);
+
+		free(data);
 		return FALSE;
 	}
 
@@ -203,7 +209,7 @@ int main(int argc, char **argv)
 
     if (argc == 4)
     {
-        if (!strcmp(argv[1],"transmit"))
+        if (strcmp(argv[1],"transmit"))
         {
             printf("Usage: [transmit/receive] SerialPort [filename]\n");
             return -1;
@@ -214,7 +220,7 @@ int main(int argc, char **argv)
 
 	if (argc == 3)
     {
-        if (!strcmp(argv[1],"receive"))
+        if (strcmp(argv[1],"receive"))
         {
             printf("Usage: [transmit/receive] SerialPort [filename]\n");
             return -1;

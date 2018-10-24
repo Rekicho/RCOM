@@ -403,119 +403,6 @@ void sendRR(int fd, int rej){
     }
 }
 
-int llread(int fd, char *buffer)
-{
-	int certo = FALSE;
-	int rej;
-	int temp_trama;
-	char data;
-	char bcc;
-	int recebido;
-	int i;
-	int destuffing;
-	int res;
-	
-	while(!certo)
-	{
-		temp_trama = check_initials(fd);
-
-		if (temp_trama < 0)
-		    return temp_trama;
-
-		rej = FALSE;
-		recebido = FALSE;
-		i = 0;
-		destuffing = FALSE;
-		res = 0;
-
-
-		while(!recebido)
-		{
-		    res = read(fd,&data,1);
-
-		    if (res <= 0)
-		        continue;
-
-			if (destuffing)
-			{
-				destuffing = FALSE;
-			
-				if(data == INF_XOR_FLAG)
-					data = INF_FLAG;
-
-				else if(data == INF_XOR_ESCAPE)
-					data = INF_ESCAPE;
-
-				else return -1;
-			}
-
-		    else if (data == INF_FLAG)
-		    {
-		        if(i == 0)
-		            return -1;
-
-		        recebido = TRUE;
-		        break;
-		    }
-
-		    //DE-STUFFING
-			else if (data == INF_ESCAPE)
-			{
-				destuffing = TRUE;
-				continue;
-			}
-			
-
-		    if (i != 0)
-		        buffer[i-1] = bcc;
-
-		    bcc = data;
-		    i++;
-		}
-
-		i--; //BCC doesn't count
-
-		//i has num char read to buffer
-
-		char check = 0;
-		int j = 0;
-
-		for(; j < i; j++)
-			check ^= buffer[j];
-
-		if (check != bcc)
-		    rej = TRUE;
-
-		printf("Trama %d recebida!\n", temp_trama);
-
-		if(rej && temp_trama == trama)
-		{
-			sendRR(fd,rej);	
-			printf("REJ%d enviado!\n", trama);
-			continue;
-		}
-
-		if(temp_trama != trama)
-		{
-			sendRR(fd,rej);
-			printf("RR%d re-enviado!\n", trama);
-			continue;
-		}	
-
-		certo = TRUE;
-	
-		if(trama == 0)
-			trama = 1;
-
-		else trama = 0;
-
-		sendRR(fd,rej);
-		printf("RR%d enviado!\n", trama);
-	}
-
-    return i;
-}
-
 int llwrite(int fd, char *buffer, int length)
 {
 	if (length <= 0 || !(trama == 0 || trama == 1))
@@ -716,6 +603,119 @@ int llwrite(int fd, char *buffer, int length)
 	free(buf);
 
 	return j;
+}
+
+int llread(int fd, char *buffer)
+{
+	int certo = FALSE;
+	int rej;
+	int temp_trama;
+	char data;
+	char bcc;
+	int recebido;
+	int i;
+	int destuffing;
+	int res;
+	
+	while(!certo)
+	{
+		temp_trama = check_initials(fd);
+
+		if (temp_trama < 0)
+		    return temp_trama;
+
+		rej = FALSE;
+		recebido = FALSE;
+		i = 0;
+		destuffing = FALSE;
+		res = 0;
+
+
+		while(!recebido)
+		{
+		    res = read(fd,&data,1);
+
+		    if (res <= 0)
+		        continue;
+
+			if (destuffing)
+			{
+				destuffing = FALSE;
+			
+				if(data == INF_XOR_FLAG)
+					data = INF_FLAG;
+
+				else if(data == INF_XOR_ESCAPE)
+					data = INF_ESCAPE;
+
+				else return -1;
+			}
+
+		    else if (data == INF_FLAG)
+		    {
+		        if(i == 0)
+		            return -1;
+
+		        recebido = TRUE;
+		        break;
+		    }
+
+		    //DE-STUFFING
+			else if (data == INF_ESCAPE)
+			{
+				destuffing = TRUE;
+				continue;
+			}
+			
+
+		    if (i != 0)
+		        buffer[i-1] = bcc;
+
+		    bcc = data;
+		    i++;
+		}
+
+		i--; //BCC doesn't count
+
+		//i has num char read to buffer
+
+		char check = 0;
+		int j = 0;
+
+		for(; j < i; j++)
+			check ^= buffer[j];
+
+		if (check != bcc)
+		    rej = TRUE;
+
+		printf("Trama %d recebida!\n", temp_trama);
+
+		if(rej && temp_trama == trama)
+		{
+			sendRR(fd,rej);	
+			printf("REJ%d enviado!\n", trama);
+			continue;
+		}
+
+		if(temp_trama != trama)
+		{
+			sendRR(fd,rej);
+			printf("RR%d re-enviado!\n", trama);
+			continue;
+		}	
+
+		certo = TRUE;
+	
+		if(trama == 0)
+			trama = 1;
+
+		else trama = 0;
+
+		sendRR(fd,rej);
+		printf("RR%d enviado!\n", trama);
+	}
+
+    return i;
 }
 
 int llcloseTransmitter(int fd)
