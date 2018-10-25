@@ -55,8 +55,8 @@ void setDataPackage(char* buf, int data_size, int n) {
 
 	buf[0] = C_DATA;
 	buf[1] = n % 256;
-	buf[2] = data_size % 256;
-	buf[3] = data_size / 256;
+	buf[2] = data_size / 256;
+	buf[3] = data_size % 256;
 
 	int i;
 
