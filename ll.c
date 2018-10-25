@@ -98,11 +98,11 @@ int llopenTransmitter(int fd)
 {
 	char set[5];
 
-	set[0] = SET_FLAG;
+	set[0] = FLAG;
 	set[1] = SET_ADDRESS;
 	set[2] = SET_CONTROL;
 	set[3] = SET_ADDRESS ^ SET_CONTROL;
-	set[4] = SET_FLAG;
+	set[4] = FLAG;
 
 	char ua[5];
 
@@ -134,13 +134,13 @@ int llopenTransmitter(int fd)
 			switch (i)
 			{
 			case 0:
-				if (ua[i] != UA_FLAG)
+				if (ua[i] != FLAG)
 					continue;
 				break;
 			case 1:
 				if (ua[i] != UA_ADDRESS_SENDER)
 				{
-					if (ua[i] != UA_FLAG)
+					if (ua[i] != FLAG)
 						i = 0;
 					continue;
 				}
@@ -148,7 +148,7 @@ int llopenTransmitter(int fd)
 			case 2:
 				if (ua[i] != UA_CONTROL)
 				{
-					if (ua[i] != UA_FLAG)
+					if (ua[i] != FLAG)
 						i = 0;
 					else
 						i = 1;
@@ -158,7 +158,7 @@ int llopenTransmitter(int fd)
 			case 3:
 				if (ua[i] != (UA_ADDRESS_SENDER ^ UA_CONTROL))
 				{
-					if (ua[i] != UA_FLAG)
+					if (ua[i] != FLAG)
 						i = 0;
 					else
 						i = 1;
@@ -166,7 +166,7 @@ int llopenTransmitter(int fd)
 				}
 				break;
 			case 4:
-				if (ua[i] != UA_FLAG)
+				if (ua[i] != FLAG)
 				{
 					i = 0;
 					continue;
@@ -201,11 +201,11 @@ int llopenReceiver(int fd)
 
     char ua[5];
 
-    ua[0] = UA_FLAG;
+    ua[0] = FLAG;
     ua[1] = UA_ADDRESS_SENDER;
     ua[2] = UA_CONTROL;
     ua[3] = UA_ADDRESS_SENDER ^ UA_CONTROL;
-    ua[4] = UA_FLAG;
+    ua[4] = FLAG;
 
     int recebido = FALSE;
     int i = 0, res = 0;
@@ -220,13 +220,13 @@ int llopenReceiver(int fd)
         switch (i)
         {
         case 0:
-            if (set[i] != SET_FLAG)
+            if (set[i] != FLAG)
                 continue;
             break;
         case 1:
             if (set[i] != SET_ADDRESS)
             {
-                if (set[i] != SET_FLAG)
+                if (set[i] != FLAG)
                     i = 0;
                 continue;
             }
@@ -234,7 +234,7 @@ int llopenReceiver(int fd)
         case 2:
             if (set[i] != SET_CONTROL)
             {
-                if (set[i] != SET_FLAG)
+                if (set[i] != FLAG)
                     i = 0;
                 else
                     i = 1;
@@ -244,7 +244,7 @@ int llopenReceiver(int fd)
         case 3:
             if (set[i] != (SET_ADDRESS ^ SET_CONTROL))
             {
-                if (set[i] != SET_FLAG)
+                if (set[i] != FLAG)
                     i = 0;
                 else
                     i = 1;
@@ -252,7 +252,7 @@ int llopenReceiver(int fd)
             }
             break;
         case 4:
-            if (set[i] != SET_FLAG)
+            if (set[i] != FLAG)
             {
                 i = 0;
                 continue;
@@ -320,13 +320,13 @@ int check_initials(int fd)
         switch (i)
         {
         case 0:
-            if (inf[i] != INF_FLAG)
+            if (inf[i] != FLAG)
                 continue;
             break;
         case 1:
             if (inf[i] != INF_ADDRESS)
             {
-                if (inf[i] != INF_FLAG)
+                if (inf[i] != FLAG)
                     i = 0;
                 continue;
             }
@@ -338,7 +338,7 @@ int check_initials(int fd)
 					temp_trama = 1;
             else
             {
-                if (inf[i] != INF_FLAG)
+                if (inf[i] != FLAG)
                     i = 0;
                 else
                     i = 1;
@@ -348,7 +348,7 @@ int check_initials(int fd)
         case 3:
             if (!((inf[i] == (INF_ADDRESS ^ INF_CONTROL0) && temp_trama == 0) || (inf[i] == (INF_ADDRESS ^ INF_CONTROL1) && temp_trama == 1)))
             {
-                if (inf[i] != INF_FLAG)
+                if (inf[i] != FLAG)
                     i = 0;
                 else
                     i = 1;
@@ -371,7 +371,7 @@ int check_initials(int fd)
 void sendRR(int fd, int rej){
 	char rr[5];
 
-    rr[0] = RR_FLAG;
+    rr[0] = FLAG;
     rr[1] = RR_ADDRESS;
 
 	if(trama == 0)
@@ -404,7 +404,7 @@ void sendRR(int fd, int rej){
 		}
 	}
 
-    rr[4] = RR_FLAG;
+    rr[4] = FLAG;
 
 	int enviado = FALSE;
 	int res;
@@ -433,7 +433,7 @@ int llwrite(int fd, char *buffer, int length)
 
 	buf = (char *)malloc((length + 1) * 2 + 5);
 
-	buf[0] = INF_FLAG;
+	buf[0] = FLAG;
 	buf[1] = INF_ADDRESS;
 
 	if (trama == 0)
@@ -453,7 +453,7 @@ int llwrite(int fd, char *buffer, int length)
 
 	for (; i < length; i++, j++)
 	{
-		if (buffer[i] == INF_FLAG)
+		if (buffer[i] == FLAG)
 		{
 			buf[j] = INF_ESCAPE;
 			j++;
@@ -471,7 +471,7 @@ int llwrite(int fd, char *buffer, int length)
 			buf[j] = buffer[i];
 	}
 
-	if (bcc2 == INF_FLAG)
+	if (bcc2 == FLAG)
 	{
 		buf[j] = INF_ESCAPE;
 		j++;
@@ -490,7 +490,7 @@ int llwrite(int fd, char *buffer, int length)
 
 	j++;
 
-	buf[j] = INF_FLAG;
+	buf[j] = FLAG;
 
 	j++; // j contém numero de chars usados
 
@@ -526,13 +526,13 @@ int llwrite(int fd, char *buffer, int length)
 			switch (i)
 			{
 			case 0:
-				if (rr[i] != RR_FLAG)
+				if (rr[i] != FLAG)
 					continue;
 				break;
 			case 1:
 				if (rr[i] != RR_ADDRESS)
 				{
-					if (rr[i] != RR_FLAG)
+					if (rr[i] != FLAG)
 						i = 0;
 					continue;
 				}
@@ -554,7 +554,7 @@ int llwrite(int fd, char *buffer, int length)
 				}
 				else
 				{
-					if (rr[i] != RR_FLAG)
+					if (rr[i] != FLAG)
 						i = 0;
 					else
 						i = 1;
@@ -566,14 +566,14 @@ int llwrite(int fd, char *buffer, int length)
 				break;
 				else
 				{
-					if (rr[i] != RR_FLAG)
+					if (rr[i] != FLAG)
 						i = 0;
 					else
 						i = 1;
 					continue;
 				}
 			case 4:
-				if (rr[i] != RR_FLAG)
+				if (rr[i] != FLAG)
 				{
 					i = 0;
 					continue;
@@ -659,7 +659,7 @@ int llread(int fd, char *buffer)
 				destuffing = FALSE;
 			
 				if(data == INF_XOR_FLAG)
-					data = INF_FLAG;
+					data = FLAG;
 
 				else if(data == INF_XOR_ESCAPE)
 					data = INF_ESCAPE;
@@ -667,7 +667,7 @@ int llread(int fd, char *buffer)
 				else return -1;
 			}
 
-		    else if (data == INF_FLAG)
+		    else if (data == FLAG)
 		    {
 		        if(i == 0)
 		            return -1;
@@ -738,11 +738,11 @@ int llcloseTransmitter(int fd)
 {
 	char disc_sender[5];
 
-	disc_sender[0] = DISC_FLAG;
+	disc_sender[0] = FLAG;
 	disc_sender[1] = DISC_ADDRESS_SENDER;
 	disc_sender[2] = DISC_CONTROL;
 	disc_sender[3] = DISC_ADDRESS_SENDER ^ DISC_CONTROL;
-	disc_sender[4] = DISC_FLAG;
+	disc_sender[4] = FLAG;
 
 	char disc_receiver[5];
 
@@ -774,13 +774,13 @@ int llcloseTransmitter(int fd)
 			switch (i)
 			{
 			case 0:
-				if (disc_receiver[i] != DISC_FLAG)
+				if (disc_receiver[i] != FLAG)
 					continue;
 				break;
 			case 1:
 				if (disc_receiver[i] != DISC_ADDRESS_RECEIVER)
 				{
-					if (disc_receiver[i] != DISC_FLAG)
+					if (disc_receiver[i] != FLAG)
 						i = 0;
 					continue;
 				}
@@ -788,7 +788,7 @@ int llcloseTransmitter(int fd)
 			case 2:
 				if (disc_receiver[i] != DISC_CONTROL)
 				{
-					if (disc_receiver[i] != DISC_FLAG)
+					if (disc_receiver[i] != FLAG)
 						i = 0;
 					else
 						i = 1;
@@ -798,7 +798,7 @@ int llcloseTransmitter(int fd)
 			case 3:
 				if (disc_receiver[i] != (DISC_ADDRESS_RECEIVER ^ DISC_CONTROL))
 				{
-					if (disc_receiver[i] != DISC_FLAG)
+					if (disc_receiver[i] != FLAG)
 						i = 0;
 					else
 						i = 1;
@@ -806,7 +806,7 @@ int llcloseTransmitter(int fd)
 				}
 				break;
 			case 4:
-				if (disc_receiver[i] != DISC_FLAG)
+				if (disc_receiver[i] != FLAG)
 				{
 					i = 0;
 					continue;
@@ -834,11 +834,11 @@ int llcloseTransmitter(int fd)
 
 	char ua[5];
 
-    ua[0] = UA_FLAG;
+    ua[0] = FLAG;
     ua[1] = UA_ADDRESS_RECEIVER;
     ua[2] = UA_CONTROL;
     ua[3] = UA_ADDRESS_RECEIVER ^ UA_CONTROL;
-    ua[4] = UA_FLAG;
+    ua[4] = FLAG;
 
 	int enviado = FALSE;
 
@@ -862,11 +862,11 @@ int llcloseReceiver(int fd)
 
     char disc_receiver[5];
 
-    disc_receiver[0] = DISC_FLAG;
+    disc_receiver[0] = FLAG;
     disc_receiver[1] = DISC_ADDRESS_RECEIVER;
     disc_receiver[2] = DISC_CONTROL;
     disc_receiver[3] = DISC_ADDRESS_RECEIVER ^ DISC_CONTROL;
-    disc_receiver[4] = DISC_FLAG;
+    disc_receiver[4] = FLAG;
 
     int recebido = FALSE;
     int i = 0, res = 0;
@@ -881,13 +881,13 @@ int llcloseReceiver(int fd)
         switch (i)
         {
         case 0:
-            if (disc_sender[i] != DISC_FLAG)
+            if (disc_sender[i] != FLAG)
                 continue;
             break;
         case 1:
             if (disc_sender[i] != DISC_ADDRESS_SENDER)
             {
-                if (disc_sender[i] != DISC_FLAG)
+                if (disc_sender[i] != FLAG)
                     i = 0;
                 continue;
             }
@@ -895,7 +895,7 @@ int llcloseReceiver(int fd)
         case 2:
             if (disc_sender[i] != DISC_CONTROL)
             {
-                if (disc_sender[i] != DISC_FLAG)
+                if (disc_sender[i] != FLAG)
                     i = 0;
                 else
                     i = 1;
@@ -905,7 +905,7 @@ int llcloseReceiver(int fd)
         case 3:
             if (disc_sender[i] != (DISC_ADDRESS_SENDER ^ DISC_CONTROL))
             {
-                if (disc_sender[i] != DISC_FLAG)
+                if (disc_sender[i] != FLAG)
                     i = 0;
                 else
                     i = 1;
@@ -913,7 +913,7 @@ int llcloseReceiver(int fd)
             }
             break;
         case 4:
-            if (disc_sender[i] != DISC_FLAG)
+            if (disc_sender[i] != FLAG)
             {
                 i = 0;
                 continue;
