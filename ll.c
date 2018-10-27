@@ -96,7 +96,7 @@ int setup(char* port)
 
 int llopenTransmitter(int fd)
 {
-	char set[5];
+	char set[SET_SIZE];
 
 	set[0] = FLAG;
 	set[1] = SET_ADDRESS;
@@ -104,7 +104,7 @@ int llopenTransmitter(int fd)
 	set[3] = SET_ADDRESS ^ SET_CONTROL;
 	set[4] = FLAG;
 
-	char ua[5];
+	char ua[UA_SIZE];
 
 	int recebido = FALSE;
 	int i = 0, res = 0;
@@ -197,9 +197,9 @@ int llopenTransmitter(int fd)
 
 int llopenReceiver(int fd)
 {
-    char set[5];
+    char set[SET_SIZE];
 
-    char ua[5];
+    char ua[UA_SIZE];
 
     ua[0] = FLAG;
     ua[1] = UA_ADDRESS_SENDER;
