@@ -8,6 +8,8 @@
 #include <unistd.h>
 #include <string.h>
 
+FILE* appLog;
+
 void sendControl(int porta, char* name, int size, int option) {
 	 
 	int package_size = 5;
@@ -71,6 +73,7 @@ void setDataPackage(char* buf, int data_size, int n) {
 int transmit(char *port, char *file)
 {
 	int serial = llopen(port, TRANSMITTER);
+	fprintf(appLog, "Called llopen().\n");
 
     if (serial < 0)
         return -1;
@@ -90,6 +93,7 @@ int transmit(char *port, char *file)
 	int n = 0; //PACKET n = 0 será START, a partir de n = 1 dados
 
 	sendControl(serial, file, size, C_START);
+	fprintf(appLog, "Sent START Control Packet.\n");
 
 	n++;
 
@@ -109,14 +113,21 @@ int transmit(char *port, char *file)
 		if (llwrite(serial, buf, res + 4) < 0)
 			return -1;
 
+		fprintf(appLog, "Sent Data Packet n = %d.\n",n);
+
 		n++;
 	}
 
-	sendControl(serial, file, size, C_END);  
+	sendControl(serial, file, size, C_END);
+	fprintf(appLog, "Sent END Control Packet.\n");  
 
 	close(fd);
 
-	return llclose(serial, TRANSMITTER);
+	llclose(serial, TRANSMITTER);
+
+	fprintf(appLog, "llclose() called.\n");
+
+	return 0;
 }
 
 int interpretPacket(char* buf, int res, int* file, int n)
@@ -136,11 +147,15 @@ int interpretPacket(char* buf, int res, int* file, int n)
 		*file = fd;
 
 		free(file_name);
+		fprintf(appLog,"Received START Control Packet.\n");
 		return FALSE;
 	}
 
-	if(buf[0]==C_END)	
+	if(buf[0]==C_END)
+	{
+		fprintf(appLog,"Received END Control Packet.\n");
 		return TRUE;
+	}	
 
 	if(buf[0]!=C_DATA)
 		printf("Campo Controlo Packet %d não conhecido, assumindo 1.\n", n);
@@ -159,6 +174,7 @@ int interpretPacket(char* buf, int res, int* file, int n)
 		write(*file, data, res - 4);
 
 		free(data);
+		fprintf(appLog,"Received Data Packet n = %d.\n", buf[1]);
 		return FALSE;
 	}
 
@@ -201,6 +217,11 @@ int receive(char *port)
     return llclose(serial, RECEIVER);
 }
 
+void openAppLogFile()
+{
+	appLog = fopen("appLog.txt","w");
+}
+
 int main(int argc, char **argv)
 {
     if (argc < 2 || argc > 4)
@@ -217,6 +238,8 @@ int main(int argc, char **argv)
             return -1;
         }
 
+	openAppLogFile();
+
         return transmit(argv[2], argv[3]);
     }
 
@@ -227,6 +250,8 @@ int main(int argc, char **argv)
             printf("Usage: [transmit/receive] SerialPort [filename]\n");
             return -1;
         }
+
+	openAppLogFile();
 
         return receive(argv[2]);
     }

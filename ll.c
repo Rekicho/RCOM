@@ -16,17 +16,24 @@ int trama = 0;
 int flag_alarme = 0;
 int conta_alarme = 0;
 
+FILE* llLog;
+
 void atende_alarme()
 {
 	flag_alarme = 1;
 	conta_alarme++;
-	printf("Alarme %d\n", conta_alarme);
+	fprintf(llLog,"Alarme %d\n", conta_alarme);
 }
 
 void desativa_alarme()
 {
 	flag_alarme = 0;
 	alarm(0);
+}
+
+void openLLLogFile()
+{
+	llLog = fopen("llLog.txt","w");
 }
 
 int setup(char* port)
@@ -83,7 +90,9 @@ int setup(char* port)
         exit(-1);
     }
 
-    printf("New termios structure set\n");
+    openLLLogFile();
+
+    fprintf(llLog,"New termios structure set\n");
 
 	struct sigaction action;
     action.sa_handler = atende_alarme;
@@ -118,7 +127,7 @@ int llopenTransmitter(int fd)
 		if (res != SUP_SIZE)
 			continue;
 		
-		printf("SET enviado!\n");
+		fprintf(llLog,"SET enviado!\n");
 
 		alarm(3);
 
@@ -181,7 +190,7 @@ int llopenTransmitter(int fd)
 			if (i == SUP_SIZE)
 			{
 				recebido = TRUE;
-				printf("UA recebido!\n");
+				fprintf(llLog,"UA recebido!\n");
 				desativa_alarme();
 			}
 		}
@@ -267,7 +276,7 @@ int llopenReceiver(int fd)
         if (i == SUP_SIZE)
         {
             recebido = TRUE;
-            printf("SET recebido!\n");
+            fprintf(llLog,"SET recebido!\n");
         }
     }
 
@@ -276,7 +285,7 @@ int llopenReceiver(int fd)
     while (!enviado)
     {
         res = write(fd, ua, SUP_SIZE);
-        printf("UA enviado!\n");
+        fprintf(llLog,"UA enviado!\n");
 
         if (res == SUP_SIZE)
             enviado = TRUE;
@@ -300,72 +309,6 @@ int llopen(char *port, int flag)
 		return res;
 
 	return fd;
-}
-
-int check_initials(int fd)
-{
-    char inf[4];
-
-    int recebido = FALSE;
-    int i = 0, res = 0;
-	int temp_trama = -1;
-
-    while (!recebido)
-    {
-        res = read(fd, inf + i, 1);
-
-        if (res <= 0)
-            continue;
-
-        switch (i)
-        {
-        case 0:
-            if (inf[i] != FLAG)
-                continue;
-            break;
-        case 1:
-            if (inf[i] != ADDRESS_SENDER)
-            {
-                if (inf[i] != FLAG)
-                    i = 0;
-                continue;
-            }
-            break;
-        case 2:
-			if (inf[i] == INF_CONTROL0)
-					temp_trama = 0;
-			else if (inf[i] == INF_CONTROL1)
-					temp_trama = 1;
-            else
-            {
-                if (inf[i] != FLAG)
-                    i = 0;
-                else
-                    i = 1;
-                continue;
-            }
-            break;
-        case 3:
-            if (!((inf[i] == (ADDRESS_SENDER ^ INF_CONTROL0) && temp_trama == 0) || (inf[i] == (ADDRESS_SENDER ^ INF_CONTROL1) && temp_trama == 1)))
-            {
-                if (inf[i] != FLAG)
-                    i = 0;
-                else
-                    i = 1;
-                continue;
-            }
-            break;
-        default:
-            break;
-        }
-
-        i++;
-
-        if (i == INF_HEADER_SIZE)
-            recebido = TRUE;
-    }
-
-	return temp_trama;
 }
 
 void sendRR(int fd, int rej){
@@ -510,7 +453,7 @@ int llwrite(int fd, char *buffer, int length)
 		if (res != j)
 			continue;
 
-		printf("Trama I%d enviada!\n", trama);
+		fprintf(llLog,"Trama I%d enviada!\n", trama);
 
 		alarm(3);
 
@@ -590,9 +533,9 @@ int llwrite(int fd, char *buffer, int length)
 				desativa_alarme();
 				recebido = TRUE;
 				if(rej)
-					printf("REJ%d recebido!\n", temp_trama);
+					fprintf(llLog,"REJ%d recebido!\n", temp_trama);
 
-				else printf("RR%d recebido!\n", temp_trama);
+				else fprintf(llLog,"RR%d recebido!\n", temp_trama);
 			}
 		}
 
@@ -606,7 +549,7 @@ int llwrite(int fd, char *buffer, int length)
 			temp_trama = -1;
 			recebido = FALSE;
 			rej = FALSE;
-			printf("Re-sending trama I%d!\n",trama);
+			fprintf(llLog,"Re-sending trama I%d!\n",trama);
 			continue;
 		}
 
@@ -619,6 +562,72 @@ int llwrite(int fd, char *buffer, int length)
 	free(buf);
 
 	return j;
+}
+
+int check_initials(int fd)
+{
+    char inf[4];
+
+    int recebido = FALSE;
+    int i = 0, res = 0;
+	int temp_trama = -1;
+
+    while (!recebido)
+    {
+        res = read(fd, inf + i, 1);
+
+        if (res <= 0)
+            continue;
+
+        switch (i)
+        {
+        case 0:
+            if (inf[i] != FLAG)
+                continue;
+            break;
+        case 1:
+            if (inf[i] != ADDRESS_SENDER)
+            {
+                if (inf[i] != FLAG)
+                    i = 0;
+                continue;
+            }
+            break;
+        case 2:
+			if (inf[i] == INF_CONTROL0)
+					temp_trama = 0;
+			else if (inf[i] == INF_CONTROL1)
+					temp_trama = 1;
+            else
+            {
+                if (inf[i] != FLAG)
+                    i = 0;
+                else
+                    i = 1;
+                continue;
+            }
+            break;
+        case 3:
+            if (!((inf[i] == (ADDRESS_SENDER ^ INF_CONTROL0) && temp_trama == 0) || (inf[i] == (ADDRESS_SENDER ^ INF_CONTROL1) && temp_trama == 1)))
+            {
+                if (inf[i] != FLAG)
+                    i = 0;
+                else
+                    i = 1;
+                continue;
+            }
+            break;
+        default:
+            break;
+        }
+
+        i++;
+
+        if (i == INF_HEADER_SIZE)
+            recebido = TRUE;
+    }
+
+	return temp_trama;
 }
 
 int llread(int fd, char *buffer)
@@ -704,19 +713,19 @@ int llread(int fd, char *buffer)
 		if (check != bcc)
 		    rej = TRUE;
 
-		printf("Trama %d recebida!\n", temp_trama);
+		fprintf(llLog,"Trama %d recebida!\n", temp_trama);
 
 		if(rej && temp_trama == trama)
 		{
 			sendRR(fd,rej);	
-			printf("REJ%d enviado!\n", trama);
+			fprintf(llLog,"REJ%d enviado!\n", trama);
 			continue;
 		}
 
 		if(temp_trama != trama)
 		{
 			sendRR(fd,rej);
-			printf("RR%d re-enviado!\n", trama);
+			fprintf(llLog,"RR%d re-enviado!\n", trama);
 			continue;
 		}	
 
@@ -728,7 +737,7 @@ int llread(int fd, char *buffer)
 		else trama = 0;
 
 		sendRR(fd,rej);
-		printf("RR%d enviado!\n", trama);
+		fprintf(llLog,"RR%d enviado!\n", trama);
 	}
 
     return i;
@@ -758,7 +767,7 @@ int llcloseTransmitter(int fd)
 		if (res != SUP_SIZE)
 			continue;
 		
-		printf("DISC enviado!\n");
+		fprintf(llLog,"DISC enviado!\n");
 
 		alarm(3);
 
@@ -821,7 +830,7 @@ int llcloseTransmitter(int fd)
 			if (i == SUP_SIZE)
 			{
 				recebido = TRUE;
-				printf("DISC recebido!\n");
+				fprintf(llLog,"DISC recebido!\n");
 				desativa_alarme();
 			}
 		}
@@ -845,7 +854,7 @@ int llcloseTransmitter(int fd)
     while (!enviado)
     {
         res = write(fd, ua, SUP_SIZE);
-        printf("UA enviado!\n");
+        fprintf(llLog,"UA enviado!\n");
 
         if (res == SUP_SIZE)
             enviado = TRUE;
@@ -928,7 +937,7 @@ int llcloseReceiver(int fd)
         if (i == SUP_SIZE)
         {
             recebido = TRUE;
-            printf("DISC recebido!\n");
+            fprintf(llLog,"DISC recebido!\n");
         }
     }
 
@@ -937,7 +946,7 @@ int llcloseReceiver(int fd)
     while (!enviado)
     {
         res = write(fd, disc_receiver, SUP_SIZE);
-        printf("DISC enviado!\n");
+        fprintf(llLog,"DISC enviado!\n");
 
         if (res == SUP_SIZE)
             enviado = TRUE;
