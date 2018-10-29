@@ -10,6 +10,23 @@
 
 FILE* appLog;
 
+void print_progress(int progress, int max)
+{
+	printf("\rProgres[");
+
+	int i = 0;
+	for(; i < 10; i++)
+	{
+		if(i < (progress * 10.0 / max))
+			printf("#");
+
+		else printf(" ");
+	}
+
+	printf("] %d%%", (int)(progress * 100.0 / max)); 
+	fflush(stdout);
+}
+
 void sendControl(int porta, char* name, int size, int option) {
 	 
 	int package_size = 5;
@@ -101,9 +118,11 @@ int transmit(char *port, char *file)
 
 	int res;
 	char buf[PACKET_SIZE];
+	int progress = 0;
 
-	while(res != 0)
+	while(progress != size)
 	{
+		print_progress(progress, size);
 		res = read(fd, buf, PACKET_SIZE - 4);
 
 		if(res == 0)
@@ -114,9 +133,12 @@ int transmit(char *port, char *file)
 			return -1;
 
 		fprintf(appLog, "Sent Data Packet n = %d.\n",n);
+		progress += res;
 
 		n++;
 	}
+
+	printf("\n"); //To fix console after progress bar
 
 	sendControl(serial, file, size, C_END);
 	fprintf(appLog, "Sent END Control Packet.\n");  
