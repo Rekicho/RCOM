@@ -12,7 +12,7 @@ FILE* appLog;
 
 void print_progress(int progress, int max)
 {
-	printf("\rProgres[");
+	printf("\rProgress[");
 
 	int i = 0;
 	for(; i < 10; i++)
@@ -44,15 +44,11 @@ void sendControl(int porta, char* name, int size, int option) {
 	package[0] = option;
 	package[1] = 0x00;
 	package[2] = byte_size;
-	int z=0;
-	int i=byte_size+2;
-	for(; i>2;i--)
-	{	
-		
-		package[i]= (size >> (8*(z))) & 0xFF;
-		z++;
-	}
-	i=3+byte_size;
+
+	memcpy(package + 3, &size, sizeof(size));
+	
+	int i=3+byte_size;
+
 	package[i]=0x01;
 	package[i+1]=name_length;
 
@@ -103,8 +99,7 @@ int transmit(char *port, char *file)
     }
 
 	fseek(ficheiro, 0L, SEEK_END);
-	int size = ftell(ficheiro)-1;
-
+	int size = ftell(ficheiro);
 	fclose(ficheiro);
 
 	int n = 0; //PACKET n = 0 será START, a partir de n = 1 dados
@@ -138,6 +133,7 @@ int transmit(char *port, char *file)
 		n++;
 	}
 
+	print_progress(progress, size);
 	printf("\n"); //To fix console after progress bar
 
 	sendControl(serial, file, size, C_END);
@@ -152,17 +148,19 @@ int transmit(char *port, char *file)
 	return 0;
 }
 
-int interpretPacket(char* buf, int res, int* file, int n)
+int interpretPacket(char* buf, int res, int* file, int n, int* size)
 {
 	if(buf[0]==C_START)
 	{
-		int i=5 + buf[2];
+		memcpy(size, buf + 3, buf[2]);
+		
+		int i = 5 + buf[2];
 		int j=0;
 		char* file_name = (char *)malloc(res-i);
 		
 		for(;i<res;i++, j++)
 		{
-			file_name[j]=buf[i];
+			file_name[j]= buf[i];
 		}
 
 		int fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC , 0644);
@@ -217,22 +215,28 @@ int receive(char *port)
     int file;
 
 	int n = 0;
+	int size = 0;
 
-	interpretPacket(buffer, res, &file, n); //PACKET n = 0 será START, a partir de n = 1 dados
-
+	interpretPacket(buffer, res, &file, n, &size); //PACKET n = 0 será START, a partir de n = 1 dados
 	n++;
 
     int end = FALSE;
 
+	int progress = 0;
     while(!end)
     {
+		print_progress(progress, size);
         res = llread(serial, buffer);
 		if(res < 0)
 			return res;
 
-        end = interpretPacket(buffer, res, &file, n);
+        end = interpretPacket(buffer, res, &file, n, &size);
 		n++;
+
+		progress += res - 4;
     }
+
+	printf("\n"); //To fix console after progress bar
 
 	close(file);
 
