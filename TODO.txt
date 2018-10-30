@@ -1,2 +1,1 @@
-- Progress bar receiver
-- Fechar cenas
+- No relatorio dizer que geraçao de erros foi desenvolvida depois da apresentação
