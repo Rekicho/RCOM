@@ -45,7 +45,7 @@ void sendControl(int porta, char* name, int size, int option) {
 	package[1] = 0x00;
 	package[2] = byte_size;
 
-	memcpy(package + 3, &size, sizeof(size));
+	memcpy(package + 3, &size, byte_size);
 	
 	int i=3+byte_size;
 
@@ -83,7 +83,7 @@ void setDataPackage(char* buf, int data_size, int n) {
 	free(data);
 }
 
-int transmit(char *port, char *file)
+int transmit(char *port, char *file, int packet_size)
 {
 	int serial = llopen(port, TRANSMITTER);
 	fprintf(appLog, "Called llopen().\n");
@@ -112,13 +112,13 @@ int transmit(char *port, char *file)
 	int fd = open(file,O_RDONLY);
 
 	int res;
-	char buf[PACKET_SIZE];
+	char* buf = (char*) malloc(packet_size);
 	int progress = 0;
 
 	while(progress != size)
 	{
 		print_progress(progress, size);
-		res = read(fd, buf, PACKET_SIZE - 4);
+		res = read(fd, buf, packet_size - 4);
 
 		if(res == 0)
 			break;
@@ -132,6 +132,8 @@ int transmit(char *port, char *file)
 
 		n++;
 	}
+
+	free(buf);
 
 	print_progress(progress, size);
 	printf("\n"); //To fix console after progress bar
@@ -201,7 +203,7 @@ int interpretPacket(char* buf, int res, int* file, int n, int* size)
 	return FALSE;	
 }
 
-int receive(char *port)
+int receive(char *port, int packet_size)
 {
     int serial = llopen(port, RECEIVER);
 
@@ -220,21 +222,25 @@ int receive(char *port)
 	interpretPacket(buffer, res, &file, n, &size); //PACKET n = 0 será START, a partir de n = 1 dados
 	n++;
 
+	char* buf = (char*) malloc(packet_size);
+
     int end = FALSE;
 
 	int progress = 0;
     while(!end)
     {
 		print_progress(progress, size);
-        res = llread(serial, buffer);
+        res = llread(serial, buf);
 		if(res < 0)
 			return res;
 
-        end = interpretPacket(buffer, res, &file, n, &size);
+        end = interpretPacket(buf, res, &file, n, &size);
 		n++;
 
 		progress += res - 4;
     }
+
+	free(buf);
 
 	printf("\n"); //To fix console after progress bar
 
@@ -266,7 +272,14 @@ int main(int argc, char **argv)
 
 	openAppLogFile();
 
-        return transmit(argv[2], argv[3]);
+	#ifdef EFI_SIZE
+		for(int i = 0; i < 10; i++)
+			transmit(argv[2], argv[3], 10*(i+1));
+	#else
+		transmit(argv[2], argv[3], PACKET_SIZE);
+	#endif
+
+		return 0;
     }
 
 	if (argc == 3)
@@ -279,7 +292,14 @@ int main(int argc, char **argv)
 
 	openAppLogFile();
 
-        return receive(argv[2]);
+	#ifdef EFI_SIZE
+		for(int i = 0; i < 10; i++)
+			receive(argv[2], 10*(i+1));
+	#else
+		receive(argv[2], PACKET_SIZE);
+	#endif
+
+        return 0;
     }
 
 	printf("Usage: [transmit/receive] SerialPort [filename]\n");
