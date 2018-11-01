@@ -16,23 +16,28 @@ int trama = 0;
 int flag_alarme = 0;
 int conta_alarme = 0;
 
+#ifdef LOG
 FILE* llLog;
 
 void openLLLogFile()
 {
-	llLog = fopen("llLog.txt","w");
+	llLog = fopen("llLog.txt","a");
 }
 
 void closeLLLogFile()
 {
 	fclose(llLog);
 }
+#endif
 
 void atende_alarme()
 {
 	flag_alarme = 1;
 	conta_alarme++;
+
+	#ifdef LOG
 	fprintf(llLog,"Alarme %d\n", conta_alarme);
+	#endif
 }
 
 void desativa_alarme()
@@ -95,11 +100,13 @@ int setup(char* port)
         exit(-1);
     }
 
+		#ifdef LOG
     openLLLogFile();
 
     fprintf(llLog,"New termios structure set\n");
+		#endif
 
-	struct sigaction action;
+		struct sigaction action;
     action.sa_handler = atende_alarme;
     sigemptyset(&action.sa_mask);
     action.sa_flags = 0;
@@ -132,7 +139,9 @@ int llopenTransmitter(int fd)
 		if (res != SUP_SIZE)
 			continue;
 
+		#ifdef LOG
 		fprintf(llLog,"SET enviado!\n");
+		#endif
 
 		alarm(3);
 
@@ -195,7 +204,11 @@ int llopenTransmitter(int fd)
 			if (i == SUP_SIZE)
 			{
 				recebido = TRUE;
+
+				#ifdef LOG
 				fprintf(llLog,"UA recebido!\n");
+				#endif
+
 				desativa_alarme();
 			}
 		}
@@ -281,7 +294,10 @@ int llopenReceiver(int fd)
         if (i == SUP_SIZE)
         {
             recebido = TRUE;
+
+						#ifdef LOG
             fprintf(llLog,"SET recebido!\n");
+						#endif
         }
     }
 
@@ -290,7 +306,10 @@ int llopenReceiver(int fd)
     while (!enviado)
     {
         res = write(fd, ua, SUP_SIZE);
+
+				#ifdef LOG
         fprintf(llLog,"UA enviado!\n");
+				#endif
 
         if (res == SUP_SIZE)
             enviado = TRUE;
@@ -458,7 +477,9 @@ int llwrite(int fd, char *buffer, int length)
 		if (res != j)
 			continue;
 
+		#ifdef LOG
 		fprintf(llLog,"Trama I%d enviada!\n", trama);
+		#endif
 
 		alarm(3);
 
@@ -537,10 +558,13 @@ int llwrite(int fd, char *buffer, int length)
 			{
 				desativa_alarme();
 				recebido = TRUE;
+
+				#ifdef LOG
 				if(rej)
 					fprintf(llLog,"REJ%d recebido!\n", temp_trama);
 
 				else fprintf(llLog,"RR%d recebido!\n", temp_trama);
+				#endif
 			}
 		}
 
@@ -554,7 +578,11 @@ int llwrite(int fd, char *buffer, int length)
 			temp_trama = -1;
 			recebido = FALSE;
 			rej = FALSE;
+
+			#ifdef LOG
 			fprintf(llLog,"Re-sending trama I%d!\n",trama);
+			#endif
+
 			continue;
 		}
 
@@ -721,19 +749,29 @@ int llread(int fd, char *buffer)
 		if (check != bcc)
 		    rej = TRUE;
 
+		#ifdef LOG
 		fprintf(llLog,"Trama %d recebida!\n", temp_trama);
+		#endif
 
 		if(rej && temp_trama == trama)
 		{
 			sendRR(fd,rej);
+
+			#ifdef LOG
 			fprintf(llLog,"REJ%d enviado!\n", trama);
+			#endif
+
 			continue;
 		}
 
 		if(temp_trama != trama)
 		{
 			sendRR(fd,rej);
+
+			#ifdef LOG
 			fprintf(llLog,"RR%d re-enviado!\n", trama);
+			#endif
+
 			continue;
 		}
 
@@ -745,7 +783,10 @@ int llread(int fd, char *buffer)
 		else trama = 0;
 
 		sendRR(fd,rej);
+
+		#ifdef LOG
 		fprintf(llLog,"RR%d enviado!\n", trama);
+		#endif
 	}
 
     return i;
@@ -775,7 +816,9 @@ int llcloseTransmitter(int fd)
 		if (res != SUP_SIZE)
 			continue;
 
+		#ifdef LOG
 		fprintf(llLog,"DISC enviado!\n");
+		#endif
 
 		alarm(3);
 
@@ -838,7 +881,11 @@ int llcloseTransmitter(int fd)
 			if (i == SUP_SIZE)
 			{
 				recebido = TRUE;
+
+				#ifdef LOG
 				fprintf(llLog,"DISC recebido!\n");
+				#endif
+
 				desativa_alarme();
 			}
 		}
@@ -862,7 +909,10 @@ int llcloseTransmitter(int fd)
     while (!enviado)
     {
         res = write(fd, ua, SUP_SIZE);
+
+				#ifdef LOG
         fprintf(llLog,"UA enviado!\n");
+				#endif
 
         if (res == SUP_SIZE)
             enviado = TRUE;
@@ -945,7 +995,10 @@ int llcloseReceiver(int fd)
         if (i == SUP_SIZE)
         {
             recebido = TRUE;
+
+						#ifdef LOG
             fprintf(llLog,"DISC recebido!\n");
+						#endif
         }
     }
 
@@ -954,7 +1007,10 @@ int llcloseReceiver(int fd)
     while (!enviado)
     {
         res = write(fd, disc_receiver, SUP_SIZE);
+
+				#ifdef LOG
         fprintf(llLog,"DISC enviado!\n");
+				#endif
 
         if (res == SUP_SIZE)
             enviado = TRUE;
@@ -970,14 +1026,22 @@ int llclose(int fd, int flag)
 	if(flag == TRANSMITTER)
 	{
 		llcloseTransmitter(fd);
+
+		#ifdef LOG
 		closeLLLogFile();
+		#endif
+
 		return 0;
 	}
 
 	if(flag == RECEIVER)
 	{
 		llcloseReceiver(fd);
+
+		#ifdef LOG
 		closeLLLogFile();
+		#endif
+
 		return 0;
 	}
 

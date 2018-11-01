@@ -8,17 +8,20 @@
 #include <unistd.h>
 #include <string.h>
 
+
+#ifdef LOG
 FILE* appLog;
 
 void openAppLogFile()
 {
-	appLog = fopen("appLog.txt","w");
+	appLog = fopen("appLog.txt","a");
 }
 
 void closeAppLogFile()
 {
 	fclose(appLog);
 }
+#endif
 
 void print_progress(int progress, int max)
 {
@@ -96,7 +99,10 @@ void setDataPackage(char* buf, int data_size, int n) {
 int transmit(char *port, char *file, int packet_size)
 {
 	int serial = llopen(port, TRANSMITTER);
+
+	#ifdef LOG
 	fprintf(appLog, "Called llopen().\n");
+	#endif
 
     if (serial < 0)
         return -1;
@@ -115,7 +121,10 @@ int transmit(char *port, char *file, int packet_size)
 	int n = 0; //PACKET n = 0 será START, a partir de n = 1 dados
 
 	sendControl(serial, file, size, C_START);
+
+	#ifdef LOG
 	fprintf(appLog, "Sent START Control Packet.\n");
+	#endif
 
 	n++;
 
@@ -137,7 +146,10 @@ int transmit(char *port, char *file, int packet_size)
 		if (llwrite(serial, buf, res + 4) < 0)
 			return -1;
 
+		#ifdef LOG
 		fprintf(appLog, "Sent Data Packet n = %d.\n",n);
+		#endif
+
 		progress += res;
 
 		n++;
@@ -149,13 +161,18 @@ int transmit(char *port, char *file, int packet_size)
 	printf("\n"); //To fix console after progress bar
 
 	sendControl(serial, file, size, C_END);
+
+	#ifdef LOG
 	fprintf(appLog, "Sent END Control Packet.\n");
+	#endif
 
 	close(fd);
 
 	llclose(serial, TRANSMITTER);
 
+	#ifdef LOG
 	fprintf(appLog, "llclose() called.\n");
+	#endif
 
 	return 0;
 }
@@ -179,13 +196,20 @@ int interpretPacket(char* buf, int res, int* file, int n, int* size)
 		*file = fd;
 
 		free(file_name);
+
+		#ifdef LOG
 		fprintf(appLog,"Received START Control Packet.\n");
+		#endif
+
 		return FALSE;
 	}
 
 	if(buf[0]==C_END)
 	{
+		#ifdef LOG
 		fprintf(appLog,"Received END Control Packet.\n");
+		#endif
+
 		return TRUE;
 	}
 
@@ -206,7 +230,11 @@ int interpretPacket(char* buf, int res, int* file, int n, int* size)
 		write(*file, data, res - 4);
 
 		free(data);
+
+		#ifdef LOG
 		fprintf(appLog,"Received Data Packet n = %d.\n", buf[1]);
+		#endif
+
 		return FALSE;
 	}
 
@@ -275,19 +303,23 @@ int main(int argc, char **argv)
             return -1;
         }
 
-	openAppLogFile();
+				#ifdef LOG
+				openAppLogFile();
+				#endif
 
-	#ifdef EFI_SIZE
-		int i = 0;
-		for(;i < 10; i++)
-			transmit(argv[2], argv[3], 10*(i+1));
-	#else
-		transmit(argv[2], argv[3], PACKET_SIZE);
-	#endif
+				#ifdef EFI_SIZE
+				int i = 0;
+				for(;i < 10; i++)
+					transmit(argv[2], argv[3], 10*(i+1));
+				#else
+				transmit(argv[2], argv[3], PACKET_SIZE);
+				#endif
 
-	closeAppLogFile();
+				#ifdef LOG
+				closeAppLogFile();
+				#endif
 
-		return 0;
+				return 0;
     }
 
 	if (argc == 3)
@@ -298,21 +330,25 @@ int main(int argc, char **argv)
             return -1;
         }
 
-	openAppLogFile();
+				#ifdef LOG
+				openAppLogFile();
+				#endif
 
-	#ifdef EFI_SIZE
-		int i = 0;
-		for(; i < 10; i++)
-			receive(argv[2], 10*(i+1));
-	#else
-		receive(argv[2], PACKET_SIZE);
-	#endif
+				#ifdef EFI_SIZE
+				int i = 0;
+				for(; i < 10; i++)
+					receive(argv[2], 10*(i+1));
+				#else
+				receive(argv[2], PACKET_SIZE);
+				#endif
 
-	closeAppLogFile();
+				#ifdef LOG
+				closeAppLogFile();
+				#endif
 
         return 0;
     }
 
-	printf("Usage: [transmit/receive] SerialPort [filename]\n");
+		printf("Usage: [transmit/receive] SerialPort [filename]\n");
     return 1;
 }
