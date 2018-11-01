@@ -18,6 +18,16 @@ int conta_alarme = 0;
 
 FILE* llLog;
 
+void openLLLogFile()
+{
+	llLog = fopen("llLog.txt","w");
+}
+
+void closeLLLogFile()
+{
+	fclose(llLog);
+}
+
 void atende_alarme()
 {
 	flag_alarme = 1;
@@ -29,11 +39,6 @@ void desativa_alarme()
 {
 	flag_alarme = 0;
 	alarm(0);
-}
-
-void openLLLogFile()
-{
-	llLog = fopen("llLog.txt","w");
 }
 
 int setup(char* port)
@@ -126,7 +131,7 @@ int llopenTransmitter(int fd)
 
 		if (res != SUP_SIZE)
 			continue;
-		
+
 		fprintf(llLog,"SET enviado!\n");
 
 		alarm(3);
@@ -332,7 +337,7 @@ void sendRR(int fd, int rej){
 		}
 	}
 
-	else 
+	else
 	{
 		if(rej)
 		{
@@ -559,6 +564,9 @@ int llwrite(int fd, char *buffer, int length)
 		else trama = 0;
 	}
 
+	if(!recebido)
+		return -1;
+
 	free(buf);
 
 	return j;
@@ -641,7 +649,7 @@ int llread(int fd, char *buffer)
 	int i;
 	int destuffing;
 	int res;
-	
+
 	while(!certo)
 	{
 		temp_trama = check_initials(fd);
@@ -666,7 +674,7 @@ int llread(int fd, char *buffer)
 			if (destuffing)
 			{
 				destuffing = FALSE;
-			
+
 				if(data == INF_XOR_FLAG)
 					data = FLAG;
 
@@ -691,7 +699,7 @@ int llread(int fd, char *buffer)
 				destuffing = TRUE;
 				continue;
 			}
-			
+
 
 		    if (i != 0)
 		        buffer[i-1] = bcc;
@@ -717,7 +725,7 @@ int llread(int fd, char *buffer)
 
 		if(rej && temp_trama == trama)
 		{
-			sendRR(fd,rej);	
+			sendRR(fd,rej);
 			fprintf(llLog,"REJ%d enviado!\n", trama);
 			continue;
 		}
@@ -727,10 +735,10 @@ int llread(int fd, char *buffer)
 			sendRR(fd,rej);
 			fprintf(llLog,"RR%d re-enviado!\n", trama);
 			continue;
-		}	
+		}
 
 		certo = TRUE;
-	
+
 		if(trama == 0)
 			trama = 1;
 
@@ -766,7 +774,7 @@ int llcloseTransmitter(int fd)
 
 		if (res != SUP_SIZE)
 			continue;
-		
+
 		fprintf(llLog,"DISC enviado!\n");
 
 		alarm(3);
@@ -960,10 +968,18 @@ int llcloseReceiver(int fd)
 int llclose(int fd, int flag)
 {
 	if(flag == TRANSMITTER)
-		return llcloseTransmitter(fd);
+	{
+		llcloseTransmitter(fd);
+		closeLLLogFile();
+		return 0;
+	}
 
 	if(flag == RECEIVER)
-		return llcloseReceiver(fd);
+	{
+		llcloseReceiver(fd);
+		closeLLLogFile();
+		return 0;
+	}
 
 	return -1;
 }

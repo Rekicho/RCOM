@@ -10,6 +10,16 @@
 
 FILE* appLog;
 
+void openAppLogFile()
+{
+	appLog = fopen("appLog.txt","w");
+}
+
+void closeAppLogFile()
+{
+	fclose(appLog);
+}
+
 void print_progress(int progress, int max)
 {
 	printf("\rProgress[");
@@ -23,15 +33,15 @@ void print_progress(int progress, int max)
 		else printf(" ");
 	}
 
-	printf("] %d%%", (int)(progress * 100.0 / max)); 
+	printf("] %d%%", (int)(progress * 100.0 / max));
 	fflush(stdout);
 }
 
 void sendControl(int porta, char* name, int size, int option) {
-	 
+
 	int package_size = 5;
 	int name_length = strlen(name) + 1;
-	
+
 	int byte_size = ceil(log2((double)size+1.0)/8);
 
 	package_size += byte_size;
@@ -46,13 +56,13 @@ void sendControl(int porta, char* name, int size, int option) {
 	package[2] = byte_size;
 
 	memcpy(package + 3, &size, byte_size);
-	
+
 	int i=3+byte_size;
 
 	package[i]=0x01;
 	package[i+1]=name_length;
 
-	int j;	
+	int j;
 	for(j=0;j<name_length;j++)
 	{
 		package[i+j+2]= name[j];
@@ -75,10 +85,10 @@ void setDataPackage(char* buf, int data_size, int n) {
 
 	int i;
 
-	for (i = 0; i < data_size; i++) 
+	for (i = 0; i < data_size; i++)
 	{
 		buf[i+4] = data[i];
-	}	
+	}
 
 	free(data);
 }
@@ -139,7 +149,7 @@ int transmit(char *port, char *file, int packet_size)
 	printf("\n"); //To fix console after progress bar
 
 	sendControl(serial, file, size, C_END);
-	fprintf(appLog, "Sent END Control Packet.\n");  
+	fprintf(appLog, "Sent END Control Packet.\n");
 
 	close(fd);
 
@@ -155,11 +165,11 @@ int interpretPacket(char* buf, int res, int* file, int n, int* size)
 	if(buf[0]==C_START)
 	{
 		memcpy(size, buf + 3, buf[2]);
-		
+
 		int i = 5 + buf[2];
 		int j=0;
 		char* file_name = (char *)malloc(res-i);
-		
+
 		for(;i<res;i++, j++)
 		{
 			file_name[j]= buf[i];
@@ -177,7 +187,7 @@ int interpretPacket(char* buf, int res, int* file, int n, int* size)
 	{
 		fprintf(appLog,"Received END Control Packet.\n");
 		return TRUE;
-	}	
+	}
 
 	if(buf[0]!=C_DATA)
 		printf("Campo Controlo Packet %d não conhecido, assumindo 1.\n", n);
@@ -188,7 +198,7 @@ int interpretPacket(char* buf, int res, int* file, int n, int* size)
 
 		int i;
 
-		for (i = 0; i < res - 4; i++) 
+		for (i = 0; i < res - 4; i++)
 		{
 			data[i] = buf[i+4];
 		}
@@ -200,7 +210,7 @@ int interpretPacket(char* buf, int res, int* file, int n, int* size)
 		return FALSE;
 	}
 
-	return FALSE;	
+	return FALSE;
 }
 
 int receive(char *port, int packet_size)
@@ -249,11 +259,6 @@ int receive(char *port, int packet_size)
     return llclose(serial, RECEIVER);
 }
 
-void openAppLogFile()
-{
-	appLog = fopen("appLog.txt","w");
-}
-
 int main(int argc, char **argv)
 {
     if (argc < 2 || argc > 4)
@@ -273,11 +278,14 @@ int main(int argc, char **argv)
 	openAppLogFile();
 
 	#ifdef EFI_SIZE
-		for(int i = 0; i < 10; i++)
+		int i = 0;
+		for(;i < 10; i++)
 			transmit(argv[2], argv[3], 10*(i+1));
 	#else
 		transmit(argv[2], argv[3], PACKET_SIZE);
 	#endif
+
+	closeAppLogFile();
 
 		return 0;
     }
@@ -293,11 +301,14 @@ int main(int argc, char **argv)
 	openAppLogFile();
 
 	#ifdef EFI_SIZE
-		for(int i = 0; i < 10; i++)
+		int i = 0;
+		for(; i < 10; i++)
 			receive(argv[2], 10*(i+1));
 	#else
 		receive(argv[2], PACKET_SIZE);
 	#endif
+
+	closeAppLogFile();
 
         return 0;
     }
