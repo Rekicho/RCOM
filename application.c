@@ -8,13 +8,28 @@
 #include <unistd.h>
 #include <string.h>
 
+#ifdef TIME
+#include <time.h>
+
+FILE *timeLog;
+
+void openTimeLogFile()
+{
+	timeLog = fopen("timeLog.txt", "a");
+}
+
+void closeTimeLogFile()
+{
+	fclose(timeLog);
+}
+#endif
 
 #ifdef LOG
-FILE* appLog;
+FILE *appLog;
 
 void openAppLogFile()
 {
-	appLog = fopen("appLog.txt","a");
+	appLog = fopen("appLog.txt", "a");
 }
 
 void closeAppLogFile()
@@ -23,33 +38,36 @@ void closeAppLogFile()
 }
 #endif
 
+#ifdef PROGRESS
 void print_progress(int progress, int max)
 {
 	printf("\rProgress[");
 
 	int i = 0;
-	for(; i < 10; i++)
+	for (; i < 10; i++)
 	{
-		if(i < (progress * 10.0 / max))
+		if (i < (progress * 10.0 / max))
 			printf("#");
 
-		else printf(" ");
+		else
+			printf(" ");
 	}
 
 	printf("] %d%%", (int)(progress * 100.0 / max));
 	fflush(stdout);
 }
+#endif
 
-void sendControl(int porta, char* name, int size, int option) {
+void sendControl(int porta, char *name, int size, int option)
+{
 
 	int package_size = 5;
 	int name_length = strlen(name) + 1;
 
-	int byte_size = ceil(log2((double)size+1.0)/8);
+	int byte_size = ceil(log2((double)size + 1.0) / 8);
 
 	package_size += byte_size;
 	package_size += name_length;
-
 
 	char *package;
 	package = (char *)malloc(package_size);
@@ -60,15 +78,15 @@ void sendControl(int porta, char* name, int size, int option) {
 
 	memcpy(package + 3, &size, byte_size);
 
-	int i=3+byte_size;
+	int i = 3 + byte_size;
 
-	package[i]=0x01;
-	package[i+1]=name_length;
+	package[i] = 0x01;
+	package[i + 1] = name_length;
 
 	int j;
-	for(j=0;j<name_length;j++)
+	for (j = 0; j < name_length; j++)
 	{
-		package[i+j+2]= name[j];
+		package[i + j + 2] = name[j];
 	}
 
 	llwrite(porta, package, package_size);
@@ -76,10 +94,11 @@ void sendControl(int porta, char* name, int size, int option) {
 	free(package);
 }
 
-void setDataPackage(char* buf, int data_size, int n) {
+void setDataPackage(char *buf, int data_size, int n)
+{
 
-	char* data = (char *)malloc(data_size);
- 	memcpy(data, buf, data_size);
+	char *data = (char *)malloc(data_size);
+	memcpy(data, buf, data_size);
 
 	buf[0] = C_DATA;
 	buf[1] = n % 256;
@@ -90,7 +109,7 @@ void setDataPackage(char* buf, int data_size, int n) {
 
 	for (i = 0; i < data_size; i++)
 	{
-		buf[i+4] = data[i];
+		buf[i + 4] = data[i];
 	}
 
 	free(data);
@@ -100,19 +119,20 @@ int transmit(char *port, char *file, int packet_size)
 {
 	int serial = llopen(port, TRANSMITTER);
 
-	#ifdef LOG
+#ifdef LOG
 	fprintf(appLog, "Called llopen().\n");
-	#endif
+#endif
 
-    if (serial < 0)
-        return -1;
+	if (serial < 0)
+		return -1;
 
-	FILE* ficheiro = fopen(file, "r");
+	FILE *ficheiro = fopen(file, "r");
 
-	if (ficheiro == 0) {
+	if (ficheiro == 0)
+	{
 		printf("Error: %s is not a file.\n", file);
 		return -1;
-    }
+	}
 
 	fseek(ficheiro, 0L, SEEK_END);
 	int size = ftell(ficheiro);
@@ -122,33 +142,36 @@ int transmit(char *port, char *file, int packet_size)
 
 	sendControl(serial, file, size, C_START);
 
-	#ifdef LOG
+#ifdef LOG
 	fprintf(appLog, "Sent START Control Packet.\n");
-	#endif
+#endif
 
 	n++;
 
-	int fd = open(file,O_RDONLY);
+	int fd = open(file, O_RDONLY);
 
 	int res;
-	char* buf = (char*) malloc(packet_size);
+	char *buf = (char *)malloc(packet_size);
 	int progress = 0;
 
-	while(progress != size)
+	while (progress != size)
 	{
+#ifdef PROGRESS
 		print_progress(progress, size);
+#endif
+
 		res = read(fd, buf, packet_size - 4);
 
-		if(res == 0)
+		if (res == 0)
 			break;
 
 		setDataPackage(buf, res, n);
 		if (llwrite(serial, buf, res + 4) < 0)
 			return -1;
 
-		#ifdef LOG
-		fprintf(appLog, "Sent Data Packet n = %d.\n",n);
-		#endif
+#ifdef LOG
+		fprintf(appLog, "Sent Data Packet n = %d.\n", n);
+#endif
 
 		progress += res;
 
@@ -157,83 +180,85 @@ int transmit(char *port, char *file, int packet_size)
 
 	free(buf);
 
+#ifdef PROGRESS
 	print_progress(progress, size);
 	printf("\n"); //To fix console after progress bar
+#endif
 
 	sendControl(serial, file, size, C_END);
 
-	#ifdef LOG
+#ifdef LOG
 	fprintf(appLog, "Sent END Control Packet.\n");
-	#endif
+#endif
 
 	close(fd);
 
 	llclose(serial, TRANSMITTER);
 
-	#ifdef LOG
+#ifdef LOG
 	fprintf(appLog, "llclose() called.\n");
-	#endif
+#endif
 
 	return 0;
 }
 
-int interpretPacket(char* buf, int res, int* file, int n, int* size)
+int interpretPacket(char *buf, int res, int *file, int n, int *size)
 {
-	if(buf[0]==C_START)
+	if (buf[0] == C_START)
 	{
 		memcpy(size, buf + 3, buf[2]);
 
 		int i = 5 + buf[2];
-		int j=0;
-		char* file_name = (char *)malloc(res-i);
+		int j = 0;
+		char *file_name = (char *)malloc(res - i);
 
-		for(;i<res;i++, j++)
+		for (; i < res; i++, j++)
 		{
-			file_name[j]= buf[i];
+			file_name[j] = buf[i];
 		}
 
-		int fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC , 0644);
+		int fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		*file = fd;
 
 		free(file_name);
 
-		#ifdef LOG
-		fprintf(appLog,"Received START Control Packet.\n");
-		#endif
+#ifdef LOG
+		fprintf(appLog, "Received START Control Packet.\n");
+#endif
 
 		return FALSE;
 	}
 
-	if(buf[0]==C_END)
+	if (buf[0] == C_END)
 	{
-		#ifdef LOG
-		fprintf(appLog,"Received END Control Packet.\n");
-		#endif
+#ifdef LOG
+		fprintf(appLog, "Received END Control Packet.\n");
+#endif
 
 		return TRUE;
 	}
 
-	if(buf[0]!=C_DATA)
+	if (buf[0] != C_DATA)
 		printf("Campo Controlo Packet %d não conhecido, assumindo 1.\n", n);
 
-	if(buf[0]==C_DATA)
+	if (buf[0] == C_DATA)
 	{
-		char* data = (char *)malloc(res - 4);
+		char *data = (char *)malloc(res - 4);
 
 		int i;
 
 		for (i = 0; i < res - 4; i++)
 		{
-			data[i] = buf[i+4];
+			data[i] = buf[i + 4];
 		}
 
 		write(*file, data, res - 4);
 
 		free(data);
 
-		#ifdef LOG
-		fprintf(appLog,"Received Data Packet n = %d.\n", buf[1]);
-		#endif
+#ifdef LOG
+		fprintf(appLog, "Received Data Packet n = %d.\n", buf[1]);
+#endif
 
 		return FALSE;
 	}
@@ -243,16 +268,20 @@ int interpretPacket(char* buf, int res, int* file, int n, int* size)
 
 int receive(char *port, int packet_size)
 {
-    int serial = llopen(port, RECEIVER);
+#ifdef TIME
+	clock_t start = clock();
+#endif
 
-    if (serial < 0)
-        return -1;
+	int serial = llopen(port, RECEIVER);
 
-    char buffer[PACKET_SIZE];
+	if (serial < 0)
+		return -1;
 
-    int res = llread(serial, buffer);
+	char buffer[PACKET_SIZE];
 
-    int file;
+	int res = llread(serial, buffer);
+
+	int file;
 
 	int n = 0;
 	int size = 0;
@@ -260,95 +289,123 @@ int receive(char *port, int packet_size)
 	interpretPacket(buffer, res, &file, n, &size); //PACKET n = 0 será START, a partir de n = 1 dados
 	n++;
 
-	char* buf = (char*) malloc(packet_size);
+	char *buf = (char *)malloc(packet_size);
 
-    int end = FALSE;
+	int end = FALSE;
 
 	int progress = 0;
-    while(!end)
-    {
+	while (!end)
+	{
+#ifdef PROGRESS
 		print_progress(progress, size);
-        res = llread(serial, buf);
-		if(res < 0)
+#endif
+
+		res = llread(serial, buf);
+		if (res < 0)
 			return res;
 
-        end = interpretPacket(buf, res, &file, n, &size);
+		end = interpretPacket(buf, res, &file, n, &size);
 		n++;
 
 		progress += res - 4;
-    }
+	}
 
 	free(buf);
 
+#ifdef PROGRESS
 	printf("\n"); //To fix console after progress bar
+#endif
 
 	close(file);
 
-    return llclose(serial, RECEIVER);
+	llclose(serial, RECEIVER);
+
+#ifdef TIME
+	clock_t end = clock();
+	float time = (float)(end - start) / CLOCKS_PER_SEC;
+#endif
+
+#ifdef EFI_SIZE
+	float r = (size * 8)/time;
+	float s = r/38400;
+
+	fprintf(timeLog, "%d %f %f %d %f 38400\n", packet_size, s, r, size*8, time);
+#endif
+
+	return 0;
 }
 
 int main(int argc, char **argv)
 {
-    if (argc < 2 || argc > 4)
-    {
-        printf("Usage: [transmit/receive] SerialPort [filename]\n");
-        return -1;
-    }
+	if (argc < 2 || argc > 4)
+	{
+		printf("Usage: [transmit/receive] SerialPort [filename]\n");
+		return -1;
+	}
 
-    if (argc == 4)
-    {
-        if (strcmp(argv[1],"transmit"))
-        {
-            printf("Usage: [transmit/receive] SerialPort [filename]\n");
-            return -1;
-        }
+	if (argc == 4)
+	{
+		if (strcmp(argv[1], "transmit"))
+		{
+			printf("Usage: [transmit/receive] SerialPort [filename]\n");
+			return -1;
+		}
 
-				#ifdef LOG
-				openAppLogFile();
-				#endif
+#ifdef LOG
+		openAppLogFile();
+#endif
 
-				#ifdef EFI_SIZE
-				int i = 0;
-				for(;i < 10; i++)
-					transmit(argv[2], argv[3], 10*(i+1));
-				#else
-				transmit(argv[2], argv[3], PACKET_SIZE);
-				#endif
+#ifdef TIME
+		openTimeLogFile();
+#endif
 
-				#ifdef LOG
-				closeAppLogFile();
-				#endif
+#ifdef EFI_SIZE
+		fprintf(timeLog, "PACKET_SIZE S=R/C R FILE_SIZE TIME BAUDRATE\n");
+		int i = 0;
+		for (; i < 10; i++)
+			transmit(argv[2], argv[3], 10 * (i + 1));
+#else
+		transmit(argv[2], argv[3], PACKET_SIZE);
+#endif
 
-				return 0;
-    }
+#ifdef LOG
+		closeAppLogFile();
+#endif
+
+#ifdef TIME
+		closeTimeLogFile();
+#endif
+
+		return 0;
+	}
 
 	if (argc == 3)
-    {
-        if (strcmp(argv[1],"receive"))
-        {
-            printf("Usage: [transmit/receive] SerialPort [filename]\n");
-            return -1;
-        }
+	{
+		if (strcmp(argv[1], "receive"))
+		{
+			printf("Usage: [transmit/receive] SerialPort [filename]\n");
+			return -1;
+		}
 
-				#ifdef LOG
-				openAppLogFile();
-				#endif
+#ifdef LOG
+		openAppLogFile();
+#endif
 
-				#ifdef EFI_SIZE
-				int i = 0;
-				for(; i < 10; i++)
-					receive(argv[2], 10*(i+1));
-				#else
-				receive(argv[2], PACKET_SIZE);
-				#endif
+#ifdef EFI_SIZE
+		int i = 0;
+		for (; i < 10; i++)
+			receive(argv[2], 10 * (i + 1));
+#else
+		receive(argv[2], PACKET_SIZE);
+#endif
 
-				#ifdef LOG
-				closeAppLogFile();
-				#endif
+#ifdef LOG
+		closeAppLogFile();
+#endif
 
-        return 0;
-    }
+		return 0;
+	}
 
-		printf("Usage: [transmit/receive] SerialPort [filename]\n");
-    return 1;
+	printf("Usage: [transmit/receive] SerialPort [filename]\n");
+	return 1;
 }
