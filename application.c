@@ -327,7 +327,7 @@ int receive(char *port, int packet_size)
 	float r = (size * 8)/time;
 	float s = r/38400;
 
-	fprintf(timeLog, "%d %f %f %d %f 38400\n", packet_size, s, r, size*8, time);
+	//fprintf(timeLog, "%d %f %f %d %f 38400\n", packet_size, s, r, size*8, time);
 #endif
 
 	return 0;
@@ -370,7 +370,7 @@ int main(int argc, char **argv)
 
 #ifdef EFI_BAUDRATE
 		int i = 0;
-		for (; i < 10; i++)
+		for (; i < 8; i++)
 			transmit(argv[2], argv[3], PACKET_SIZE);
 #endif
 
@@ -409,7 +409,7 @@ int main(int argc, char **argv)
 
 #ifdef EFI_BAUDRATE
 		int i = 0;
-		for (; i < 10; i++)
+		for (; i < 8; i++)
 			receive(argv[2], PACKET_SIZE);
 #endif
 

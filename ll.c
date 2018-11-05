@@ -17,7 +17,9 @@ int flag_alarme = 0;
 int conta_alarme = 0;
 
 #ifdef EFI_BAUDRATE
-int counter = 1;
+int indice = 0;
+int baudrate[8];
+
 #endif
 
 #ifdef LOG
@@ -83,8 +85,20 @@ int setup(char *port)
 	bzero(&newtio, sizeof(newtio));
 
 	#ifdef EFI_BAUDRATE
-	newtio.c_cflag = (BAUDRATE / counter) | CS8 | CLOCAL | CREAD;
-	counter *= 2;
+	if(indice == 0)
+	{
+		baudrate[0] = B38400;
+		baudrate[1] = B19200;
+		baudrate[2] = B9600;
+		baudrate[3] = B4800;
+		baudrate[4] = B2400;
+		baudrate[5] = B1200;
+		baudrate[6] = B600;
+		baudrate[7] = B300;
+	}
+	newtio.c_cflag = baudrate[indice] | CS8 | CLOCAL | CREAD;
+	printf("%d\n",baudrate[indice]);
+	indice++;
 
 	#else
 	newtio.c_cflag = BAUDRATE | CS8 | CLOCAL | CREAD;
