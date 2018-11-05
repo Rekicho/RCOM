@@ -15,7 +15,7 @@ FILE *timeLog;
 
 void openTimeLogFile()
 {
-	timeLog = fopen("timeLog.txt", "a");
+	timeLog = fopen("timeLog.txt", "w");
 }
 
 void closeTimeLogFile()
@@ -323,9 +323,7 @@ int receive(char *port, int packet_size)
 #ifdef TIME
 	clock_t end = clock();
 	float time = (float)(end - start) / CLOCKS_PER_SEC;
-#endif
 
-#ifdef EFI_SIZE
 	float r = (size * 8)/time;
 	float s = r/38400;
 
@@ -357,15 +355,23 @@ int main(int argc, char **argv)
 
 #ifdef TIME
 		openTimeLogFile();
+		fprintf(timeLog, "PACKET_SIZE S=R/C R FILE_SIZE TIME BAUDRATE\n");
+#endif
+
+#ifdef PROGRESS
+		transmit(argv[2], argv[3], PACKET_SIZE);
 #endif
 
 #ifdef EFI_SIZE
-		fprintf(timeLog, "PACKET_SIZE S=R/C R FILE_SIZE TIME BAUDRATE\n");
+		int i = 0;
+		for (; i < 100; i++)
+			transmit(argv[2], argv[3], 10 * (i + 1));
+#endif
+
+#ifdef EFI_BAUDRATE
 		int i = 0;
 		for (; i < 10; i++)
-			transmit(argv[2], argv[3], 10 * (i + 1));
-#else
-		transmit(argv[2], argv[3], PACKET_SIZE);
+			transmit(argv[2], argv[3], PACKET_SIZE);
 #endif
 
 #ifdef LOG
@@ -391,12 +397,20 @@ int main(int argc, char **argv)
 		openAppLogFile();
 #endif
 
+#ifdef PROGRESS
+		receive(argv[2], PACKET_SIZE);
+#endif
+
 #ifdef EFI_SIZE
 		int i = 0;
-		for (; i < 10; i++)
+		for (; i < 100; i++)
 			receive(argv[2], 10 * (i + 1));
-#else
-		receive(argv[2], PACKET_SIZE);
+#endif
+
+#ifdef EFI_BAUDRATE
+		int i = 0;
+		for (; i < 10; i++)
+			receive(argv[2], PACKET_SIZE);
 #endif
 
 #ifdef LOG

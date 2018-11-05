@@ -16,6 +16,10 @@ int trama = 0;
 int flag_alarme = 0;
 int conta_alarme = 0;
 
+#ifdef EFI_BAUDRATE
+int counter = 1;
+#endif
+
 #ifdef LOG
 FILE *llLog;
 
@@ -77,7 +81,16 @@ int setup(char *port)
 	}
 
 	bzero(&newtio, sizeof(newtio));
+
+	#ifdef EFI_BAUDRATE
+	newtio.c_cflag = (BAUDRATE / counter) | CS8 | CLOCAL | CREAD;
+	counter *= 2;
+	#endif
+
+	#elseif
 	newtio.c_cflag = BAUDRATE | CS8 | CLOCAL | CREAD;
+	#endif
+
 	newtio.c_iflag = IGNPAR;
 	newtio.c_oflag = 0;
 
