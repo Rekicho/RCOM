@@ -269,7 +269,8 @@ int interpretPacket(char *buf, int res, int *file, int n, int *size)
 int receive(char *port, int packet_size)
 {
 #ifdef TIME
-	clock_t start = clock();
+	struct timespec start;
+	clock_gettime(CLOCK_REALTIME, &start);
 #endif
 
 	int serial = llopen(port, RECEIVER);
@@ -321,13 +322,15 @@ int receive(char *port, int packet_size)
 	llclose(serial, RECEIVER);
 
 #ifdef TIME
-	clock_t finish = clock();
-	float time = (float)(finish - start) / CLOCKS_PER_SEC;
+	struct timespec finish;
+	clock_gettime(CLOCK_REALTIME, &finish);
+
+	float time = (finish.tv_sec - start.tv_sec) + (finish.tv_nsec - start.tv_nsec) / 1E9;
 
 	float r = (size * 8)/time;
 	float s = r/38400;
 
-	fprintf(timeLog, "%d %f %f %d %f 38400\n", packet_size, s, r, size*8, time); //baudrate differs on EFI_BAUDRATE
+	fprintf(timeLog, "%f %d 38400 %f\n", s, packet_size, time); //BAUDRATE WILL BE DIFFERENT ON EFI_BAUDRATE
 #endif
 
 	return 0;
@@ -353,11 +356,6 @@ int main(int argc, char **argv)
 		openAppLogFile();
 #endif
 
-#ifdef TIME
-		openTimeLogFile();
-		fprintf(timeLog, "PACKET_SIZE S=R/C R FILE_SIZE TIME BAUDRATE\n");
-#endif
-
 #ifdef PROGRESS
 		transmit(argv[2], argv[3], PACKET_SIZE);
 #endif
@@ -378,10 +376,6 @@ int main(int argc, char **argv)
 		closeAppLogFile();
 #endif
 
-#ifdef TIME
-		closeTimeLogFile();
-#endif
-
 		return 0;
 	}
 
@@ -399,7 +393,7 @@ int main(int argc, char **argv)
 
 #ifdef TIME
 		openTimeLogFile();
-		fprintf(timeLog, "PACKET_SIZE S=R/C R FILE_SIZE TIME BAUDRATE\n");
+		fprintf(timeLog, "S=R/C PACKET_SIZE BAUDRATE\n");
 #endif
 
 #ifdef PROGRESS
@@ -408,8 +402,8 @@ int main(int argc, char **argv)
 
 #ifdef EFI_SIZE
 		int i = 0;
-		for (; i < 100; i++)
-			receive(argv[2], 10 * (i + 1));
+		for (; i < 10; i++)
+			receive(argv[2], 100 * (i + 1));
 #endif
 
 #ifdef EFI_BAUDRATE
