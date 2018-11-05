@@ -22,6 +22,14 @@ int baudrate[8];
 
 #endif
 
+#ifdef EFI_DELAY
+int indice = -1;
+#endif
+
+#ifdef EFI_ERROR
+int indice = -1;
+#endif
+
 #ifdef LOG
 FILE *llLog;
 
@@ -137,6 +145,18 @@ int setup(char *port)
 	sigemptyset(&action.sa_mask);
 	action.sa_flags = 0;
 	sigaction(SIGALRM, &action, NULL);
+
+#ifdef EFI_DELAY
+	indice++;
+	if(indice == 10)
+		indice = 0;
+#endif
+
+#ifdef EFI_DELAY
+	indice++;
+	if(indice == 4)
+		indice = 0;
+#endif
 
 	return fd;
 }
@@ -641,6 +661,16 @@ int check_initials(int fd)
 	{
 		res = read(fd, inf + i, 1);
 
+#ifdef EFI_ERROR
+	if(i == 0 && indice % 2 == 1)
+	{
+		int r = random() % 100;
+
+		if (r < (indice + 1) / 2)
+			inf[i] = 0;
+	}
+#endif
+
 		if (res <= 0)
 			continue;
 
@@ -777,6 +807,16 @@ int llread(int fd, char *buffer)
 		if (check != bcc)
 			rej = TRUE;
 
+#ifdef EFI_ERROR
+	if(indice % 2 == 0)
+	{
+		int r = random() % 100;
+
+		if (r < indice / 2)
+			rej = TRUE;
+	}
+#endif
+
 #ifdef LOG
 		fprintf(llLog, "Trama %d recebida!\n", temp_trama);
 #endif
@@ -817,6 +857,10 @@ int llread(int fd, char *buffer)
 		fprintf(llLog, "RR%d enviado!\n", trama);
 #endif
 	}
+
+	#ifdef EFI_DELAY
+	usleep(100000 * (indice + 1));
+	#endif
 
 	return i;
 }
