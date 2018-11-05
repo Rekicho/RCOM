@@ -330,7 +330,7 @@ int receive(char *port, int packet_size)
 	float r = (size * 8)/time;
 	float s = r/38400;
 
-	fprintf(timeLog, "%f %d 38400 %f\n", s, packet_size, time); //BAUDRATE WILL BE DIFFERENT ON EFI_BAUDRATE
+	fprintf(timeLog, "%f %f %d %f 38400\n", s, r, packet_size, time); //BAUDRATE WILL BE DIFFERENT ON EFI_BAUDRATE
 #endif
 
 	return 0;
@@ -362,13 +362,20 @@ int main(int argc, char **argv)
 
 #ifdef EFI_SIZE
 		int i = 0;
-		for (; i < 100; i++)
-			transmit(argv[2], argv[3], 10 * (i + 1));
+		for (; i < 3; i++)
+		{
+			transmit(argv[2], argv[3], 32);
+			transmit(argv[2], argv[3], 64);
+			transmit(argv[2], argv[3], 128);
+			transmit(argv[2], argv[3], 256);
+			transmit(argv[2], argv[3], 512);
+			transmit(argv[2], argv[3], 1024);
+		}
 #endif
 
 #ifdef EFI_BAUDRATE
 		int i = 0;
-		for (; i < 8; i++)
+		for (; i < 15; i++)
 			transmit(argv[2], argv[3], PACKET_SIZE);
 #endif
 
@@ -393,7 +400,7 @@ int main(int argc, char **argv)
 
 #ifdef TIME
 		openTimeLogFile();
-		fprintf(timeLog, "S=R/C PACKET_SIZE BAUDRATE\n");
+		fprintf(timeLog, "S=R/C R PACKET_SIZE TIME BAUDRATE\n");
 #endif
 
 #ifdef PROGRESS
@@ -402,13 +409,20 @@ int main(int argc, char **argv)
 
 #ifdef EFI_SIZE
 		int i = 0;
-		for (; i < 10; i++)
-			receive(argv[2], 100 * (i + 1));
+		for (; i < 3; i++)
+		{
+			receive(argv[2], 32);
+			receive(argv[2], 64);
+			receive(argv[2], 128);
+			receive(argv[2], 256);
+			receive(argv[2], 512);
+			receive(argv[2], 1024);
+		}
 #endif
 
 #ifdef EFI_BAUDRATE
 		int i = 0;
-		for (; i < 8; i++)
+		for (; i < 15; i++)
 			receive(argv[2], PACKET_SIZE);
 #endif
 

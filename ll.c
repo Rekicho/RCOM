@@ -92,10 +92,10 @@ int setup(char *port)
 		baudrate[2] = B9600;
 		baudrate[3] = B4800;
 		baudrate[4] = B2400;
-		baudrate[5] = B1200;
-		baudrate[6] = B600;
-		baudrate[7] = B300;
 	}
+
+	if(indice == 5) indice = 0;
+
 	newtio.c_cflag = baudrate[indice] | CS8 | CLOCAL | CREAD;
 
 	indice++;
