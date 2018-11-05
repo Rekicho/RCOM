@@ -364,12 +364,13 @@ int main(int argc, char **argv)
 		int i = 0;
 		for (; i < 3; i++)
 		{
-			transmit(argv[2], argv[3], 32);
-			transmit(argv[2], argv[3], 64);
-			transmit(argv[2], argv[3], 128);
-			transmit(argv[2], argv[3], 256);
-			transmit(argv[2], argv[3], 512);
-			transmit(argv[2], argv[3], 1024);
+			transmit(argv[2], argv[3], 10);
+			transmit(argv[2], argv[3], 26);
+			transmit(argv[2], argv[3], 58);
+			transmit(argv[2], argv[3], 122);
+			transmit(argv[2], argv[3], 250);
+			transmit(argv[2], argv[3], 506);
+			transmit(argv[2], argv[3], 1018);
 		}
 #endif
 
@@ -411,12 +412,13 @@ int main(int argc, char **argv)
 		int i = 0;
 		for (; i < 3; i++)
 		{
-			receive(argv[2], 32);
-			receive(argv[2], 64);
-			receive(argv[2], 128);
-			receive(argv[2], 256);
-			receive(argv[2], 512);
-			receive(argv[2], 1024);
+			receive(argv[2], 10);
+			receive(argv[2], 26);
+			receive(argv[2], 58);
+			receive(argv[2], 122);
+			receive(argv[2], 250);
+			receive(argv[2], 506);
+			receive(argv[2], 1018);
 		}
 #endif
 
