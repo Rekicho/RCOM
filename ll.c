@@ -85,9 +85,8 @@ int setup(char *port)
 	#ifdef EFI_BAUDRATE
 	newtio.c_cflag = (BAUDRATE / counter) | CS8 | CLOCAL | CREAD;
 	counter *= 2;
-	#endif
 
-	#elseif
+	#else
 	newtio.c_cflag = BAUDRATE | CS8 | CLOCAL | CREAD;
 	#endif
 

@@ -321,8 +321,8 @@ int receive(char *port, int packet_size)
 	llclose(serial, RECEIVER);
 
 #ifdef TIME
-	clock_t end = clock();
-	float time = (float)(end - start) / CLOCKS_PER_SEC;
+	clock_t finish = clock();
+	float time = (float)(finish - start) / CLOCKS_PER_SEC;
 
 	float r = (size * 8)/time;
 	float s = r/38400;
