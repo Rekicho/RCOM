@@ -97,7 +97,7 @@ int setup(char *port)
 		baudrate[7] = B300;
 	}
 	newtio.c_cflag = baudrate[indice] | CS8 | CLOCAL | CREAD;
-	printf("%d\n",baudrate[indice]);
+
 	indice++;
 
 	#else

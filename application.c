@@ -15,7 +15,7 @@ FILE *timeLog;
 
 void openTimeLogFile()
 {
-	timeLog = fopen("timeLog.txt", "w");
+	timeLog = fopen("timeLog.txt", "a");
 }
 
 void closeTimeLogFile()
@@ -327,7 +327,7 @@ int receive(char *port, int packet_size)
 	float r = (size * 8)/time;
 	float s = r/38400;
 
-	//fprintf(timeLog, "%d %f %f %d %f 38400\n", packet_size, s, r, size*8, time);
+	fprintf(timeLog, "%d %f %f %d %f 38400\n", packet_size, s, r, size*8, time); //baudrate differs on EFI_BAUDRATE
 #endif
 
 	return 0;
@@ -397,6 +397,11 @@ int main(int argc, char **argv)
 		openAppLogFile();
 #endif
 
+#ifdef TIME
+		openTimeLogFile();
+		fprintf(timeLog, "PACKET_SIZE S=R/C R FILE_SIZE TIME BAUDRATE\n");
+#endif
+
 #ifdef PROGRESS
 		receive(argv[2], PACKET_SIZE);
 #endif
@@ -415,6 +420,10 @@ int main(int argc, char **argv)
 
 #ifdef LOG
 		closeAppLogFile();
+#endif
+
+#ifdef TIME
+		closeTimeLogFile();
 #endif
 
 		return 0;
