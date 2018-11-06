@@ -327,8 +327,8 @@ int receive(char *port, int packet_size)
 
 	float time = (finish.tv_sec - start.tv_sec) + (finish.tv_nsec - start.tv_nsec) / 1E9;
 
-	float r = (size * 8)/time;
-	float s = r/38400;
+	float r = (size * 8) / time;
+	float s = r / 38400;
 
 	fprintf(timeLog, "%f %f %d %f 38400\n", s, r, packet_size, time); //BAUDRATE WILL BE DIFFERENT ON EFI_BAUDRATE
 #endif

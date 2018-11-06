@@ -96,8 +96,8 @@ int setup(char *port)
 
 	bzero(&newtio, sizeof(newtio));
 
-	#ifdef EFI_BAUDRATE
-	if(indice == 0)
+#ifdef EFI_BAUDRATE
+	if (indice == 0)
 	{
 		baudrate[0] = B38400;
 		baudrate[1] = B19200;
@@ -106,15 +106,16 @@ int setup(char *port)
 		baudrate[4] = B2400;
 	}
 
-	if(indice == 5) indice = 0;
+	if (indice == 5)
+		indice = 0;
 
 	newtio.c_cflag = baudrate[indice] | CS8 | CLOCAL | CREAD;
 
 	indice++;
 
-	#else
+#else
 	newtio.c_cflag = BAUDRATE | CS8 | CLOCAL | CREAD;
-	#endif
+#endif
 
 	newtio.c_iflag = IGNPAR;
 	newtio.c_oflag = 0;
@@ -152,13 +153,13 @@ int setup(char *port)
 
 #ifdef EFI_DELAY
 	indice++;
-	if(indice == 5)
+	if (indice == 5)
 		indice = 0;
 #endif
 
 #ifdef EFI_ERROR
 	indice++;
-	if(indice == 6)
+	if (indice == 6)
 		indice = 0;
 #endif
 
@@ -666,13 +667,13 @@ int check_initials(int fd)
 		res = read(fd, inf + i, 1);
 
 #ifdef EFI_ERROR
-	if(i == 0 && indice % 2 == 1)
-	{
-		int r = rand() % 100;
+		if (i == 0 && indice % 2 == 1)
+		{
+			int r = rand() % 100;
 
-		if (r < indice + 1)
-			inf[i] = 0;
-	}
+			if (r < indice + 1)
+				inf[i] = 0;
+		}
 #endif
 
 		if (res <= 0)
@@ -812,13 +813,13 @@ int llread(int fd, char *buffer)
 			rej = TRUE;
 
 #ifdef EFI_ERROR
-	if(indice % 2 == 0)
-	{
-		int r = rand() % 100;
+		if (indice % 2 == 0)
+		{
+			int r = rand() % 100;
 
-		if (r < (indice * 10) / 2)
-			rej = TRUE;
-	}
+			if (r < (indice * 10) / 2)
+				rej = TRUE;
+		}
 #endif
 
 #ifdef LOG
@@ -862,9 +863,9 @@ int llread(int fd, char *buffer)
 #endif
 	}
 
-	#ifdef EFI_DELAY
+#ifdef EFI_DELAY
 	usleep(100000 * (indice + 1));
-	#endif
+#endif
 
 	return i;
 }
