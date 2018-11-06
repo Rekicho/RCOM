@@ -388,7 +388,7 @@ int main(int argc, char **argv)
 
 #ifdef EFI_ERROR
 		int i = 0;
-		for (; i < 12; i++)
+		for (; i < 18; i++)
 			transmit(argv[2], argv[3], PACKET_SIZE);
 #endif
 
@@ -449,7 +449,7 @@ int main(int argc, char **argv)
 #ifdef EFI_ERROR
 		srand(time(NULL));
 		int i = 0;
-		for (; i < 12; i++)
+		for (; i < 18; i++)
 			receive(argv[2], PACKET_SIZE);
 #endif
 

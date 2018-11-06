@@ -1,3 +1,7 @@
+#ifdef EFI_DELAY
+#define _BSD_SOURCE
+#endif
+
 #include "common.h"
 #include "constants.h"
 
@@ -148,13 +152,13 @@ int setup(char *port)
 
 #ifdef EFI_DELAY
 	indice++;
-	if(indice == 10)
+	if(indice == 5)
 		indice = 0;
 #endif
 
-#ifdef EFI_DELAY
+#ifdef EFI_ERROR
 	indice++;
-	if(indice == 4)
+	if(indice == 6)
 		indice = 0;
 #endif
 
@@ -664,9 +668,9 @@ int check_initials(int fd)
 #ifdef EFI_ERROR
 	if(i == 0 && indice % 2 == 1)
 	{
-		int r = random() % 100;
+		int r = rand() % 100;
 
-		if (r < (indice + 1) / 2)
+		if (r < indice + 1)
 			inf[i] = 0;
 	}
 #endif
@@ -810,9 +814,9 @@ int llread(int fd, char *buffer)
 #ifdef EFI_ERROR
 	if(indice % 2 == 0)
 	{
-		int r = random() % 100;
+		int r = rand() % 100;
 
-		if (r < indice / 2)
+		if (r < (indice * 10) / 2)
 			rej = TRUE;
 	}
 #endif
