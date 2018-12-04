@@ -1,0 +1,28 @@
+https://www.ietf.org/rfc/rfc0959.txt
+
+
+SWITCH:
+
+rede/dominio1
+172.16.Y0.0/24 <-1;4            eth0.1/24, eth0.254/24-> DUAS MAQUINAS: tuxY1[cliente FTP], tuxY4[router]
+VLANY0
+^
+| Router
+v
+rede/dominio2
+172.16.Y1.0/24 <-23;24		eth1.253/24,eth0.2/24-> DUAS MAQUINAS: tuxY4, tuxY2
+VLANY1
+
+<-12 GE0->router(NAT) <-GE1 172.16.1.Y9 172.16.1.0.254/24->Router lab
+
+ifconfig etho IPaddress/mask
+
+Y: Número da bancada
+
+172.16.Y0.0 -> Reservado - Enderço rede/dominio
+...
+172.16.Y0.255 -> Reservado - broadcast
+
+Normal mas nao obrigatorio:
+172.16.Y0.254 -> Reservado - router
+172.16.Y0.1 -> Reservado - servidor dns

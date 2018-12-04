@@ -1,0 +1,11 @@
+1. identificar funcionalidades a oferecer ao utilizador (slide 4)
+2. identificar comandos de FTP que suportam as funcionalidades identificadas (RFC 959)
+3. esboçar estrutura do programa -> reutilizar código no Moodle (cliente TCP para criar socket TCP e getIP para obter endereço do servidor)
+
+utilizador: download(get) [upload(put) dir changedir]
+
+aplicação(protocolo FTP): [USER PASS PASV RETR QUIT] LIST CMD 
+
+transporte(protocolo TCP): CONNECT BIND LISTEN READ WRITE SEND RECV ...
+
+rede(IP)
