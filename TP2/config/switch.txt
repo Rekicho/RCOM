@@ -1,0 +1,31 @@
+enable
+8nortel
+
+configure terminal
+no vlan 2-4094
+exit
+
+copy flash:tux3-clean startup-config
+reload
+
+configure terminal
+vlan 30
+vlan 31
+exit
+
+show vlan brief
+
+//ver ports associados a cada vlan
+//ligar eth0 tux1 a 1º vlan 30
+//ligar eth0 tux4 a 2º vlan 30
+//ligar eth2 tux4 a 1º vlan 31
+//ligar eth0 tux2 a 2º vlan 31
+//ligar GE0/0 router a 3º vlan 31
+
+//caso necessário associar ports à vlan
+//PARA ISSO:
+configure terminal
+interface fastethernet 0/[PORT]
+switchport mode access
+switchport access vlan 3[VLAN]
+end
