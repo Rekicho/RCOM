@@ -57,6 +57,7 @@ void parseArguments(char *arg, char *user, char *password, char *host, char *url
 {
 	host[0] = '\0';
 	url_path[0] = '\0';
+	
 
 	if(strncmp(arg, "ftp://", 6) != 0)
 		errorUsage();
@@ -71,14 +72,26 @@ void parseArguments(char *arg, char *user, char *password, char *host, char *url
 		password[0] = '\0';
 
 		div = strchr(start,'/');
-
+		
 		if(div == NULL)
 			errorUsage();
 
 		memcpy(host, start, (div - start) / sizeof(char));
-
 		div++;
+
 		memcpy(url_path, div, strlen(div)); 
+
+		char *lastdiv;
+
+		while(div != NULL)
+		{
+			lastdiv = div;
+			div++;
+			div = strchr(div,'/');	
+		}
+
+		lastdiv++;
+		memcpy(file_name, lastdiv, strlen(lastdiv)); 
 	}
 
 	else
@@ -120,6 +133,7 @@ void parseArguments(char *arg, char *user, char *password, char *host, char *url
 			div = strchr(div,'/');	
 		}
 
+		lastdiv++;
 		memcpy(file_name, lastdiv, strlen(lastdiv)); 
 	}  
 }
@@ -283,7 +297,6 @@ int getPort(int socket)
 	//Read .
 	read(socket, &c, 1);
 	printf("%c", c);
-	printf("\n");
 
 	return port;	
 }
@@ -312,7 +325,7 @@ void downloadFile(int port_file, char *file_name)
     int res;
 
     while ((res = read(port_file, data, 256)) > 0)
-        write(file, data, res);
+	write(file, data, res);
 
     close(file);
 }
