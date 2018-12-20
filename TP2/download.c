@@ -8,6 +8,7 @@
 #include <netinet/in.h> 
 #include <arpa/inet.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 #define SERVER_PORT 21
 
@@ -25,7 +26,7 @@
 #define READ_IGNORE 4
 #define READ_PORT 5
 
-ssize_t getpass (char **lineptr, size_t *n, FILE *stream)
+ssize_t getpassword(char **lineptr, size_t *n, FILE *stream)
 {
 	struct termios old, new;
 	int nread;
@@ -85,12 +86,11 @@ void parseArguments(char *arg, char *user, char *password, char *host, char *url
 
 		while(div != NULL)
 		{
-			lastdiv = div;
 			div++;
+			lastdiv = div;
 			div = strchr(div,'/');	
 		}
 
-		lastdiv++;
 		memcpy(file_name, lastdiv, strlen(lastdiv)); 
 	}
 
@@ -128,12 +128,11 @@ void parseArguments(char *arg, char *user, char *password, char *host, char *url
 
 		while(div != NULL)
 		{
-			lastdiv = div;
 			div++;
+			lastdiv = div;
 			div = strchr(div,'/');	
 		}
 
-		lastdiv++;
 		memcpy(file_name, lastdiv, strlen(lastdiv)); 
 	}  
 }
@@ -321,10 +320,10 @@ void downloadFile(int port_file, char *file_name)
 {
     int file = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 
-    char data[256];
+    char data[1024];
     int res;
 
-    while ((res = read(port_file, data, 256)) > 0)
+    while ((res = read(port_file, data, 1024)) > 0)
 	write(file, data, res);
 
     close(file);
@@ -376,7 +375,7 @@ int main(int argc, char **argv)
 	{
 		printf("Password: ");
 		size_t size = 100;
-		getpass (&password, &size, stdin);
+		getpassword(&password, &size, stdin);
 		password[strlen(password)-1] = '\0';
 		printf("\n");
 	}
